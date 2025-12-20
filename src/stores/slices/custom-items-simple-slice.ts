@@ -13,7 +13,7 @@ export const createCustomSimpleSlice: StateCreator<
   [],
   [],
   CustomSimpleSlice
-> = (set, get) => ({
+> = (set) => ({
   customSimple: {},
   createCustomSimple: (sectionId) =>
     set((state) => ({

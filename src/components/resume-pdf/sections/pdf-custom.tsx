@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "@react-pdf/renderer";
-import type { CustomItem, Experience } from "@/stores/types";
+import type { CustomItem } from "@/stores/types";
 import { htmlToPdf } from "@/lib/htmlToPdf";
 import { formatDate } from "@/lib/formatDate";
 import { isEmptyParagraph } from "@/lib/isEmptyParagraph";

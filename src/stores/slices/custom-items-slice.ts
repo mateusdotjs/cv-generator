@@ -18,7 +18,7 @@ export const createCustomItemsSlice: StateCreator<
   [],
   [],
   CustomItemsSlice
-> = (set, get) => ({
+> = (set) => ({
   // { "custom-123": [ CustomItem, CustomItem ... ] }
   customItems: {},
   addCustomItem: (sectionId, item) =>

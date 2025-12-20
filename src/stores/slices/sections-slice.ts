@@ -1,17 +1,11 @@
-import { create, type StateCreator } from "zustand";
+import { type StateCreator } from "zustand";
 import type { SectionMeta } from "../types";
 import {
   createSectionMeta,
-  educationTemplate,
-  experienceTemplate,
   personalTemplate,
-  projectsTemplate,
-  summaryTemplate,
 } from "../sections.factory";
 
 const personal = createSectionMeta(personalTemplate);
-const summary = createSectionMeta(summaryTemplate);
-const experience = createSectionMeta(experienceTemplate);
 
 export type SectionsSlice = {
   sectionsOrder: string[];
