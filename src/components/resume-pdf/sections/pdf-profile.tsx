@@ -1,5 +1,8 @@
 import { StyleSheet, Text, View, Image } from "@react-pdf/renderer";
 import type { PersonalDetails } from "@/stores/types";
+import mailIcon from "@/assets/mail.png";
+import phoneIcon from "@/assets/phone.png";
+import mapPinIcon from "@/assets/map-pin.png";
 
 const styles = StyleSheet.create({
   section: {
@@ -56,21 +59,21 @@ function PDFProfile({ personalDetails }: { personalDetails: PersonalDetails }) {
       <View style={styles.infosContainer}>
         <View style={styles.info}>
           {personalDetails.email && (
-            <Image src="/src/assets/mail.png" style={styles.image} />
+            <Image src={mailIcon} style={styles.image} />
           )}
           <Text style={styles.infoText}>{personalDetails.email}</Text>
         </View>
 
         <View style={styles.info}>
           {personalDetails.phone && (
-            <Image src="/src/assets/phone.png" style={styles.image} />
+            <Image src={phoneIcon} style={styles.image} />
           )}
           <Text style={styles.infoText}>{personalDetails.phone}</Text>
         </View>
 
         <View style={styles.info}>
           {personalDetails.location && (
-            <Image src="/src/assets/map-pin.png" style={styles.image} />
+            <Image src={mapPinIcon} style={styles.image} />
           )}
           <Text style={styles.infoText}>{personalDetails.location}</Text>
         </View>
