@@ -20,6 +20,8 @@ export const createPersonalDetailsSlice: StateCreator<
     email: "",
     phone: "",
     location: "",
+    linkedin: "",
+    website: "",
   },
   updatePersonalDetails: (updatedPersonalDetails) =>
     set((state) => {

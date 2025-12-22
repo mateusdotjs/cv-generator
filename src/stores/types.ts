@@ -22,6 +22,8 @@ export type PersonalDetails = {
   email: string;
   phone: string;
   location: string;
+  linkedin: string;
+  website: string;
 };
 
 export type Summary = string;

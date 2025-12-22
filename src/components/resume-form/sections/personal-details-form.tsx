@@ -77,6 +77,34 @@ function PersonalDetailsForm() {
             }
           />
         </Field>
+        <div className="grid lg:grid-cols-2 lg:gap-2 gap-4">
+          <Field>
+            <FieldLabel htmlFor="linkedin">LinkedIn</FieldLabel>
+            <Input
+              id="linkedin"
+              value={personalDetails.linkedin}
+              onChange={(e) =>
+                updatePersonalDetails({
+                  ...personalDetails,
+                  linkedin: e.target.value,
+                })
+              }
+            />
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="website">Website</FieldLabel>
+            <Input
+              id="website"
+              value={personalDetails.website}
+              onChange={(e) =>
+                updatePersonalDetails({
+                  ...personalDetails,
+                  website: e.target.value,
+                })
+              }
+            />
+          </Field>
+        </div>
       </FieldGroup>
     </FieldSet>
   );

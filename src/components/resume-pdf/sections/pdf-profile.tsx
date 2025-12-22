@@ -3,6 +3,8 @@ import type { PersonalDetails } from "@/stores/types";
 import mailIcon from "@/assets/mail.png";
 import phoneIcon from "@/assets/phone.png";
 import mapPinIcon from "@/assets/map-pin.png";
+import linkedinIcon from "@/assets/linkedin.png";
+import websiteIcon from "@/assets/globe.png";
 
 const styles = StyleSheet.create({
   section: {
@@ -12,21 +14,19 @@ const styles = StyleSheet.create({
   },
   fullName: { fontSize: "20pt", fontWeight: "bold", marginBottom: "4px" },
   personJobTitle: { fontSize: "16pt", marginBottom: "8px" },
-  flex: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
   infosContainer: {
+    width: "100%",
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
+    flexWrap: "wrap",
   },
   info: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     gap: "4px",
+    marginRight: "24px",
+    marginBottom: "8px",
   },
   infoText: {
     fontSize: "11pt",
@@ -76,6 +76,20 @@ function PDFProfile({ personalDetails }: { personalDetails: PersonalDetails }) {
             <Image src={mapPinIcon} style={styles.image} />
           )}
           <Text style={styles.infoText}>{personalDetails.location}</Text>
+        </View>
+
+        <View style={styles.info}>
+          {personalDetails.linkedin && (
+            <Image src={linkedinIcon} style={styles.image} />
+          )}
+          <Text style={styles.infoText}>{personalDetails.linkedin}</Text>
+        </View>
+
+        <View style={styles.info}>
+          {personalDetails.website && (
+            <Image src={websiteIcon} style={styles.image} />
+          )}
+          <Text style={styles.infoText}>{personalDetails.website}</Text>
         </View>
       </View>
     </View>
