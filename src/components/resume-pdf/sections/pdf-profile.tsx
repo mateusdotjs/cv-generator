@@ -5,13 +5,9 @@ import phoneIcon from "@/assets/phone.png";
 import mapPinIcon from "@/assets/map-pin.png";
 import linkedinIcon from "@/assets/linkedin.png";
 import websiteIcon from "@/assets/globe.png";
+import { gs } from "@/components/resume-pdf/styles/pdfStyles";
 
 const styles = StyleSheet.create({
-  section: {
-    display: "flex",
-    flexDirection: "column",
-    marginBottom: "12px",
-  },
   fullName: { fontSize: "20pt", fontWeight: "bold", marginBottom: "4px" },
   personJobTitle: { fontSize: "16pt", marginBottom: "8px" },
   infosContainer: {
@@ -28,72 +24,38 @@ const styles = StyleSheet.create({
     marginRight: "24px",
     marginBottom: "8px",
   },
-  infoText: {
-    fontSize: "11pt",
-  },
-  image: {
-    width: "16px",
-    height: "16px",
-  },
-  summaryTitle: {
-    fontSize: "16pt",
-    fontWeight: "bold",
-    marginBottom: "4px",
-  },
-  summary: {
-    fontSize: "11pt",
-    lineHeight: 1.3,
-  },
+  image: { width: "16px", height: "16px" },
 });
 
 function PDFProfile({ personalDetails }: { personalDetails: PersonalDetails }) {
   if (!personalDetails) return null;
 
+  const infos = [
+    { data: personalDetails.email, icon: mailIcon },
+    { data: personalDetails.phone, icon: phoneIcon },
+    { data: personalDetails.location, icon: mapPinIcon },
+    { data: personalDetails.linkedin, icon: linkedinIcon },
+    { data: personalDetails.website, icon: websiteIcon },
+  ];
+
   return (
-    <View style={styles.section}>
+    <View style={[gs.section, { marginBottom: "12px" }]}>
       <Text style={styles.fullName}>{personalDetails.fullName}</Text>
       <Text style={styles.personJobTitle}>
         {personalDetails.personJobTitle}
       </Text>
-
       <View style={styles.infosContainer}>
-        <View style={styles.info}>
-          {personalDetails.email && (
-            <Image src={mailIcon} style={styles.image} />
-          )}
-          <Text style={styles.infoText}>{personalDetails.email}</Text>
-        </View>
-
-        <View style={styles.info}>
-          {personalDetails.phone && (
-            <Image src={phoneIcon} style={styles.image} />
-          )}
-          <Text style={styles.infoText}>{personalDetails.phone}</Text>
-        </View>
-
-        <View style={styles.info}>
-          {personalDetails.location && (
-            <Image src={mapPinIcon} style={styles.image} />
-          )}
-          <Text style={styles.infoText}>{personalDetails.location}</Text>
-        </View>
-
-        <View style={styles.info}>
-          {personalDetails.linkedin && (
-            <Image src={linkedinIcon} style={styles.image} />
-          )}
-          <Text style={styles.infoText}>{personalDetails.linkedin}</Text>
-        </View>
-
-        <View style={styles.info}>
-          {personalDetails.website && (
-            <Image src={websiteIcon} style={styles.image} />
-          )}
-          <Text style={styles.infoText}>{personalDetails.website}</Text>
-        </View>
+        {infos.map(
+          (item, index) =>
+            item.data && (
+              <View key={index} style={styles.info}>
+                <Image src={item.icon} style={styles.image} />
+                <Text style={gs.bodyText}>{item.data}</Text>
+              </View>
+            )
+        )}
       </View>
     </View>
   );
 }
-
 export default PDFProfile;
