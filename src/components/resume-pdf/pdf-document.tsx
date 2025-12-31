@@ -27,7 +27,6 @@ function PDFDocument({
   renderKey: number;
 }) {
   return (
-    <div className="min-h-full w-full">
       <PDFViewer style={{ width: "100%", height: "100%" }} key={renderKey}>
         <Document
           title={cvSnapshot.personalDetails.fullName}
@@ -54,7 +53,6 @@ function PDFDocument({
           </Page>
         </Document>
       </PDFViewer>
-    </div>
   );
 }
 
