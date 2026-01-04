@@ -7,32 +7,32 @@ import ProjectsForm from "./sections/projects-form";
 import CustomSimpleForm from "./sections/custom-simple-form";
 import SummaryForm from "./sections/summary-form";
 
-function SectionRenderer({ id }: { id: string }) {
-  const meta = useCvStore((s) => s.sectionsMeta[id]);
+function SectionRenderer({ id, resumeId }: { id: string; resumeId: string }) {
+  const meta = useCvStore((s) => s.sectionsMeta[resumeId]?.[id]);
 
   if (!meta) return null;
 
   switch (meta.type) {
     case "personal":
-      return <PersonalDetailsForm />;
+      return <PersonalDetailsForm resumeId={resumeId} />;
 
     case "summary":
-      return <SummaryForm />;
+      return <SummaryForm resumeId={resumeId} />;
 
     case "experience":
-      return <ExperienceForm />;
+      return <ExperienceForm resumeId={resumeId} />;
 
     case "education":
-      return <EducationForm />;
+      return <EducationForm resumeId={resumeId} />;
 
     case "projects":
-      return <ProjectsForm />;
+      return <ProjectsForm resumeId={resumeId} />;
 
     case "custom-simple":
-      return <CustomSimpleForm sectionId={id} />;
+      return <CustomSimpleForm resumeId={resumeId} sectionId={id} />;
 
     case "custom":
-      return <CustomForm sectionId={id} />;
+      return <CustomForm resumeId={resumeId} sectionId={id} />;
 
     default:
       return null;

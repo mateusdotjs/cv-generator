@@ -1,6 +1,10 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import {
+  createResumesSlice,
+  type ResumesSlice,
+} from "./slices/resumes-slice";
+import {
   createExperienceSlice,
   type ExperienceSlice,
 } from "./slices/experience-slice";
@@ -33,10 +37,11 @@ import { createSummarySlice, type SummarySlice } from "./slices/summary-slice";
 import type { SectionMeta } from "./types";
 
 type CvRootActions = {
-  createCustomSimpleSection: (meta: SectionMeta) => void;
+  createCustomSimpleSection: (resumeId: string, meta: SectionMeta) => void;
 };
 
 export const useCvStore = create<
+  ResumesSlice &
   ExperienceSlice &
     EducationSlice &
     PersonalDetailsSlice &
@@ -49,6 +54,7 @@ export const useCvStore = create<
 >()(
   persist(
     (set, get, store) => ({
+      ...createResumesSlice(set, get, store),
       ...createSectionsSlice(set, get, store),
       ...createCustomItemsSlice(set, get, store),
       ...createCustomSimpleSlice(set, get, store),
@@ -58,20 +64,24 @@ export const useCvStore = create<
       ...createSummarySlice(set, get, store),
       ...createPersonalDetailsSlice(set, get, store),
 
-      createCustomSimpleSection: (meta) => {
-        get().createSection(meta);
-        get().createCustomSimple(meta.id);
+      createCustomSimpleSection: (resumeId, meta) => {
+        get().createSection(resumeId, meta);
+        get().createCustomSimple(resumeId, meta.id);
       },
     }),
     {
       name: "cv",
       storage: createJSONStorage(() => localStorage),
       merge: (persisted, current) => {
+        const converted = convertDates(persisted as any);
+        const { activeResumeId: _activeResumeId, ...rest } =
+          converted && typeof converted === "object" ? converted : {};
         return {
           ...current,
-          ...convertDates(persisted),
+          ...rest,
         };
       },
     }
   )
 );
+

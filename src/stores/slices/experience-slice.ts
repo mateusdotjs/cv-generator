@@ -2,14 +2,15 @@ import type { StateCreator } from "zustand";
 import type { Experience } from "../types";
 
 export type ExperienceSlice = {
-  experiences: Experience[];
-  addExperience: (experience: Experience) => void;
-  removeExperience: (id: string) => void;
+  experiences: Record<string, Experience[]>;
+  addExperience: (resumeId: string, experience: Experience) => void;
+  removeExperience: (resumeId: string, id: string) => void;
   updateExperience: (
+    resumeId: string,
     id: string,
     updatedExperience: Partial<Experience>
   ) => void;
-  reorderExperiences: (newList: Experience[]) => void;
+  reorderExperiences: (resumeId: string, newList: Experience[]) => void;
 };
 
 export const createExperienceSlice: StateCreator<
@@ -18,23 +19,37 @@ export const createExperienceSlice: StateCreator<
   [],
   ExperienceSlice
 > = (set) => ({
-  experiences: [],
-  addExperience: (experience) =>
+  experiences: {},
+  addExperience: (resumeId, experience) =>
     set((state) => ({
-      experiences: [...state.experiences, experience],
+      experiences: {
+        ...state.experiences,
+        [resumeId]: [...(state.experiences[resumeId] ?? []), experience],
+      },
     })),
-  removeExperience: (id) =>
+  removeExperience: (resumeId, id) =>
     set((state) => ({
-      experiences: state.experiences.filter((exp) => exp.id !== id),
+      experiences: {
+        ...state.experiences,
+        [resumeId]: (state.experiences[resumeId] ?? []).filter(
+          (exp) => exp.id !== id
+        ),
+      },
     })),
-  updateExperience: (id, updatedExperience) =>
+  updateExperience: (resumeId, id, updatedExperience) =>
     set((state) => ({
-      experiences: state.experiences.map((exp) =>
-        exp.id === id ? { ...exp, ...updatedExperience } : exp
-      ),
+      experiences: {
+        ...state.experiences,
+        [resumeId]: (state.experiences[resumeId] ?? []).map((exp) =>
+          exp.id === id ? { ...exp, ...updatedExperience } : exp
+        ),
+      },
     })),
-  reorderExperiences: (newList) =>
-    set(() => {
-      return { experiences: newList };
-    }),
+  reorderExperiences: (resumeId, newList) =>
+    set((state) => ({
+      experiences: {
+        ...state.experiences,
+        [resumeId]: newList,
+      },
+    })),
 });

@@ -2,11 +2,15 @@ import type { StateCreator } from "zustand";
 import type { Education } from "../types";
 
 export type EducationSlice = {
-  education: Education[];
-  addEducation: (education: Education) => void;
-  removeEducation: (id: string) => void;
-  updateEducation: (id: string, updatedEducation: Partial<Education>) => void;
-  reorderEducation: (newList: Education[]) => void;
+  education: Record<string, Education[]>;
+  addEducation: (resumeId: string, education: Education) => void;
+  removeEducation: (resumeId: string, id: string) => void;
+  updateEducation: (
+    resumeId: string,
+    id: string,
+    updatedEducation: Partial<Education>
+  ) => void;
+  reorderEducation: (resumeId: string, newList: Education[]) => void;
 };
 
 export const createEducationSlice: StateCreator<
@@ -15,23 +19,37 @@ export const createEducationSlice: StateCreator<
   [],
   EducationSlice
 > = (set) => ({
-  education: [],
-  addEducation: (education) =>
+  education: {},
+  addEducation: (resumeId, education) =>
     set((state) => ({
-      education: [...state.education, education],
+      education: {
+        ...state.education,
+        [resumeId]: [...(state.education[resumeId] ?? []), education],
+      },
     })),
-  removeEducation: (id) =>
+  removeEducation: (resumeId, id) =>
     set((state) => ({
-      education: state.education.filter((exp) => exp.id !== id),
+      education: {
+        ...state.education,
+        [resumeId]: (state.education[resumeId] ?? []).filter(
+          (exp) => exp.id !== id
+        ),
+      },
     })),
-  updateEducation: (id, updatedEducation) =>
+  updateEducation: (resumeId, id, updatedEducation) =>
     set((state) => ({
-      education: state.education.map((exp) =>
-        exp.id === id ? { ...exp, ...updatedEducation } : exp
-      ),
+      education: {
+        ...state.education,
+        [resumeId]: (state.education[resumeId] ?? []).map((exp) =>
+          exp.id === id ? { ...exp, ...updatedEducation } : exp
+        ),
+      },
     })),
-  reorderEducation: (newList) =>
-    set(() => {
-      return { education: newList };
-    }),
+  reorderEducation: (resumeId, newList) =>
+    set((state) => ({
+      education: {
+        ...state.education,
+        [resumeId]: newList,
+      },
+    })),
 });

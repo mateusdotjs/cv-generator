@@ -5,7 +5,7 @@ import { Input } from "../../ui/input";
 import FormList from "../form-list";
 import RichTextEditor from "../rich-text-editor";
 
-function ExperienceForm() {
+function ExperienceForm({ resumeId }: { resumeId: string }) {
   const {
     experiences,
     addExperience,
@@ -14,25 +14,27 @@ function ExperienceForm() {
     reorderExperiences,
   } = useCvStore();
 
+  const items = experiences[resumeId] ?? [];
+
   return (
     <FormList
-      items={experiences}
+      items={items}
       getTitle={(exp) =>
         `${exp.company} ${exp.jobTitle && exp.company && "-"} ${exp.jobTitle}`
       }
       getId={(exp) => exp.id}
       onAdd={() =>
-        addExperience({
+        addExperience(resumeId, {
           id: crypto.randomUUID(),
-          jobTitle: `Experiência ${experiences.length + 1}`,
-          company: `Empresa ${experiences.length + 1}`,
+          jobTitle: `Experiência ${items.length + 1}`,
+          company: `Empresa ${items.length + 1}`,
           startDate: new Date(),
           endDate: undefined,
           description: "",
         })
       }
-      onRemove={(id) => removeExperience(id)}
-      onReorder={(newList) => reorderExperiences(newList)}
+      onRemove={(id) => removeExperience(resumeId, id)}
+      onReorder={(newList) => reorderExperiences(resumeId, newList)}
       renderItem={(exp, i) => {
         return (
           <FieldSet>
@@ -44,8 +46,7 @@ function ExperienceForm() {
                     id={`company-${i}`}
                     value={exp.company}
                     onChange={(e) =>
-                      updateExperience(exp.id, {
-                        ...exp,
+                      updateExperience(resumeId, exp.id, {
                         company: e.target.value,
                       })
                     }
@@ -59,8 +60,7 @@ function ExperienceForm() {
                     id={`experienceJobTitle-${i}`}
                     value={exp.jobTitle}
                     onChange={(e) =>
-                      updateExperience(exp.id, {
-                        ...exp,
+                      updateExperience(resumeId, exp.id, {
                         jobTitle: e.target.value,
                       })
                     }
@@ -77,8 +77,7 @@ function ExperienceForm() {
                       id={`experienceStartDate-${i}`}
                       value={exp.startDate}
                       onChange={(date) =>
-                        updateExperience(exp.id, {
-                          ...exp,
+                        updateExperience(resumeId, exp.id, {
                           startDate: date,
                         })
                       }
@@ -92,8 +91,7 @@ function ExperienceForm() {
                       id={`experienceEndDate-${i}`}
                       value={exp.endDate}
                       onChange={(date) =>
-                        updateExperience(exp.id, {
-                          ...exp,
+                        updateExperience(resumeId, exp.id, {
                           endDate: date,
                         })
                       }
@@ -106,7 +104,9 @@ function ExperienceForm() {
                 <RichTextEditor
                   value={exp.description}
                   onChange={(html) => {
-                    updateExperience(exp.id, { ...exp, description: html });
+                    updateExperience(resumeId, exp.id, {
+                      description: html,
+                    });
                   }}
                 />
               </Field>

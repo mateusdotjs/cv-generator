@@ -2,7 +2,7 @@ import { useCvStore } from "@/stores/cv-store";
 import { useEffect, useRef, useState } from "react";
 import PDFDocument from "./pdf-document";
 
-function ResumePDF() {
+function ResumePDF({ resumeId }: { resumeId: string }) {
   const {
     sectionsOrder,
     sectionsMeta,
@@ -15,18 +15,28 @@ function ResumePDF() {
     customSimple,
   } = useCvStore();
 
+  const snapshotSource = {
+    sectionsOrder: sectionsOrder[resumeId] ?? [],
+    sectionsMeta: sectionsMeta[resumeId] ?? {},
+    personalDetails: personalDetails[resumeId] ?? {
+      personJobTitle: "",
+      fullName: "",
+      email: "",
+      phone: "",
+      location: "",
+      linkedin: "",
+      website: "",
+    },
+    summary: summary[resumeId] ?? "",
+    experiences: experiences[resumeId] ?? [],
+    education: education[resumeId] ?? [],
+    projects: projects[resumeId] ?? [],
+    customItems: customItems[resumeId] ?? {},
+    customSimple: customSimple[resumeId] ?? {},
+  };
+
   const [cvSnapshot, setCvSnapshot] = useState(() =>
-    structuredClone({
-      sectionsOrder,
-      sectionsMeta,
-      personalDetails,
-      summary,
-      experiences,
-      education,
-      projects,
-      customItems,
-      customSimple,
-    })
+    structuredClone(snapshotSource)
   );
 
   const renderKey = useRef(0);
@@ -42,17 +52,7 @@ function ResumePDF() {
     // schedule new snapshot
     debounceRef.current = setTimeout(() => {
       setCvSnapshot(
-        structuredClone({
-          sectionsOrder,
-          sectionsMeta,
-          personalDetails,
-          summary,
-          experiences,
-          education,
-          projects,
-          customItems,
-          customSimple,
-        })
+        structuredClone(snapshotSource)
       );
 
       // force re-render of PDFViewer
@@ -66,6 +66,7 @@ function ResumePDF() {
       }
     };
   }, [
+    resumeId,
     sectionsOrder,
     sectionsMeta,
     personalDetails,

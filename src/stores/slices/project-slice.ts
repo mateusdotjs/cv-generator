@@ -2,11 +2,15 @@ import type { StateCreator } from "zustand";
 import type { Project } from "../types";
 
 export type ProjectsSlice = {
-  projects: Project[];
-  addProject: (project: Project) => void;
-  removeProject: (id: string) => void;
-  updateProject: (id: string, updatedProject: Partial<Project>) => void;
-  reorderProject: (newList: Project[]) => void;
+  projects: Record<string, Project[]>;
+  addProject: (resumeId: string, project: Project) => void;
+  removeProject: (resumeId: string, id: string) => void;
+  updateProject: (
+    resumeId: string,
+    id: string,
+    updatedProject: Partial<Project>
+  ) => void;
+  reorderProject: (resumeId: string, newList: Project[]) => void;
 };
 
 export const createProjectsSlice: StateCreator<
@@ -15,23 +19,37 @@ export const createProjectsSlice: StateCreator<
   [],
   ProjectsSlice
 > = (set) => ({
-  projects: [],
-  addProject: (project) =>
+  projects: {},
+  addProject: (resumeId, project) =>
     set((state) => ({
-      projects: [...state.projects, project],
+      projects: {
+        ...state.projects,
+        [resumeId]: [...(state.projects[resumeId] ?? []), project],
+      },
     })),
-  removeProject: (id) =>
+  removeProject: (resumeId, id) =>
     set((state) => ({
-      projects: state.projects.filter((proj) => proj.id !== id),
+      projects: {
+        ...state.projects,
+        [resumeId]: (state.projects[resumeId] ?? []).filter(
+          (proj) => proj.id !== id
+        ),
+      },
     })),
-  updateProject: (id, updatedProject) =>
+  updateProject: (resumeId, id, updatedProject) =>
     set((state) => ({
-      projects: state.projects.map((proj) =>
-        proj.id === id ? { ...proj, ...updatedProject } : proj
-      ),
+      projects: {
+        ...state.projects,
+        [resumeId]: (state.projects[resumeId] ?? []).map((proj) =>
+          proj.id === id ? { ...proj, ...updatedProject } : proj
+        ),
+      },
     })),
-  reorderProject: (newList: Project[]) =>
-    set(() => {
-      return { projects: newList };
-    }),
+  reorderProject: (resumeId, newList: Project[]) =>
+    set((state) => ({
+      projects: {
+        ...state.projects,
+        [resumeId]: newList,
+      },
+    })),
 });

@@ -5,7 +5,7 @@ import { Input } from "../../ui/input";
 import { DatePicker } from "../../ui/date-picker";
 import RichTextEditor from "../rich-text-editor";
 
-function CustomForm({ sectionId }: { sectionId: string }) {
+function CustomForm({ resumeId, sectionId }: { resumeId: string; sectionId: string }) {
   const {
     customItems,
     addCustomItem,
@@ -14,7 +14,7 @@ function CustomForm({ sectionId }: { sectionId: string }) {
     removeCustomItem,
   } = useCvStore();
 
-  const items = customItems[sectionId] || [];
+  const items = customItems[resumeId]?.[sectionId] || [];
 
   return (
     <FormList
@@ -22,7 +22,7 @@ function CustomForm({ sectionId }: { sectionId: string }) {
       getTitle={(item) => item.title}
       getId={(item) => item.id}
       onAdd={() =>
-        addCustomItem(sectionId, {
+        addCustomItem(resumeId, sectionId, {
           id: crypto.randomUUID(),
           title: `Item Personalizado ${items.length + 1}`,
           institution: `Instituição ${items.length + 1}`,
@@ -31,9 +31,11 @@ function CustomForm({ sectionId }: { sectionId: string }) {
           description: "",
         })
       }
-      onReorder={(newList) => reorderCustomItem(sectionId, newList)}
+      onReorder={(newList) =>
+        reorderCustomItem(resumeId, sectionId, newList)
+      }
       onRemove={(itemId) => {
-        removeCustomItem(sectionId, itemId);
+        removeCustomItem(resumeId, sectionId, itemId);
       }}
       renderItem={(item, i) => {
         return (
@@ -48,8 +50,7 @@ function CustomForm({ sectionId }: { sectionId: string }) {
                     id={`customItemTitle-${i}-${sectionId}`}
                     value={item.title}
                     onChange={(e) =>
-                      updateCustomItem(sectionId, item.id, {
-                        ...item,
+                      updateCustomItem(resumeId, sectionId, item.id, {
                         title: e.target.value,
                       })
                     }
@@ -66,8 +67,7 @@ function CustomForm({ sectionId }: { sectionId: string }) {
                     id={`customItemInstitution-${i}-${sectionId}`}
                     value={item.institution}
                     onChange={(e) =>
-                      updateCustomItem(sectionId, item.id, {
-                        ...item,
+                      updateCustomItem(resumeId, sectionId, item.id, {
                         institution: e.target.value,
                       })
                     }
@@ -86,8 +86,7 @@ function CustomForm({ sectionId }: { sectionId: string }) {
                       id={`customItemStartDate-${i}-${sectionId}`}
                       value={item.startDate}
                       onChange={(date) =>
-                        updateCustomItem(sectionId, item.id, {
-                          ...item,
+                        updateCustomItem(resumeId, sectionId, item.id, {
                           startDate: date,
                         })
                       }
@@ -101,8 +100,7 @@ function CustomForm({ sectionId }: { sectionId: string }) {
                       id={`customItemEndDate-${i}-${sectionId}`}
                       value={item.endDate}
                       onChange={(date) =>
-                        updateCustomItem(sectionId, item.id, {
-                          ...item,
+                        updateCustomItem(resumeId, sectionId, item.id, {
                           endDate: date,
                         })
                       }
@@ -115,8 +113,7 @@ function CustomForm({ sectionId }: { sectionId: string }) {
                 <RichTextEditor
                   value={item.description}
                   onChange={(html) => {
-                    updateCustomItem(sectionId, item.id, {
-                      ...item,
+                    updateCustomItem(resumeId, sectionId, item.id, {
                       description: html,
                     });
                   }}

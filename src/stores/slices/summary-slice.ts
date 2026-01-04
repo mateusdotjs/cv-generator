@@ -2,8 +2,8 @@ import type { StateCreator } from "zustand";
 import type { Summary } from "../types";
 
 export type SummarySlice = {
-  summary: Summary;
-  setSummary: (summary: string) => void;
+  summary: Record<string, Summary>;
+  setSummary: (resumeId: string, summary: string) => void;
 };
 
 export const createSummarySlice: StateCreator<
@@ -12,6 +12,12 @@ export const createSummarySlice: StateCreator<
   [],
   SummarySlice
 > = (set) => ({
-  summary: "",
-  setSummary: (summary) => set(() => ({ summary })),
+  summary: {},
+  setSummary: (resumeId, summary) =>
+    set((state) => ({
+      summary: {
+        ...state.summary,
+        [resumeId]: summary,
+      },
+    })),
 });

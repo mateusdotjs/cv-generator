@@ -2,8 +2,17 @@ import { useCvStore } from "@/stores/cv-store";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "../../ui/field";
 import { Input } from "../../ui/input";
 
-function PersonalDetailsForm() {
+function PersonalDetailsForm({ resumeId }: { resumeId: string }) {
   const { personalDetails, updatePersonalDetails } = useCvStore();
+  const values = personalDetails[resumeId] ?? {
+    personJobTitle: "",
+    fullName: "",
+    email: "",
+    phone: "",
+    location: "",
+    linkedin: "",
+    website: "",
+  };
 
   return (
     <FieldSet>
@@ -12,10 +21,9 @@ function PersonalDetailsForm() {
           <FieldLabel htmlFor="fullName">Nome Completo</FieldLabel>
           <Input
             id="fullName"
-            value={personalDetails.fullName}
+            value={values.fullName}
             onChange={(e) =>
-              updatePersonalDetails({
-                ...personalDetails,
+              updatePersonalDetails(resumeId, {
                 fullName: e.target.value,
               })
             }
@@ -25,10 +33,9 @@ function PersonalDetailsForm() {
           <FieldLabel htmlFor="personJobTitle">Seu cargo</FieldLabel>
           <Input
             id="personJobTitle"
-            value={personalDetails.personJobTitle}
+            value={values.personJobTitle}
             onChange={(e) =>
-              updatePersonalDetails({
-                ...personalDetails,
+              updatePersonalDetails(resumeId, {
                 personJobTitle: e.target.value,
               })
             }
@@ -40,10 +47,9 @@ function PersonalDetailsForm() {
             <Input
               type="email"
               id="email"
-              value={personalDetails.email}
+              value={values.email}
               onChange={(e) =>
-                updatePersonalDetails({
-                  ...personalDetails,
+                updatePersonalDetails(resumeId, {
                   email: e.target.value,
                 })
               }
@@ -54,10 +60,9 @@ function PersonalDetailsForm() {
             <Input
               type="tel"
               id="phone"
-              value={personalDetails.phone}
+              value={values.phone}
               onChange={(e) =>
-                updatePersonalDetails({
-                  ...personalDetails,
+                updatePersonalDetails(resumeId, {
                   phone: e.target.value,
                 })
               }
@@ -68,10 +73,9 @@ function PersonalDetailsForm() {
           <FieldLabel htmlFor="location">Localização</FieldLabel>
           <Input
             id="location"
-            value={personalDetails.location}
+            value={values.location}
             onChange={(e) =>
-              updatePersonalDetails({
-                ...personalDetails,
+              updatePersonalDetails(resumeId, {
                 location: e.target.value,
               })
             }
@@ -82,10 +86,9 @@ function PersonalDetailsForm() {
             <FieldLabel htmlFor="linkedin">LinkedIn</FieldLabel>
             <Input
               id="linkedin"
-              value={personalDetails.linkedin}
+              value={values.linkedin}
               onChange={(e) =>
-                updatePersonalDetails({
-                  ...personalDetails,
+                updatePersonalDetails(resumeId, {
                   linkedin: e.target.value,
                 })
               }
@@ -95,10 +98,9 @@ function PersonalDetailsForm() {
             <FieldLabel htmlFor="website">Website</FieldLabel>
             <Input
               id="website"
-              value={personalDetails.website}
+              value={values.website}
               onChange={(e) =>
-                updatePersonalDetails({
-                  ...personalDetails,
+                updatePersonalDetails(resumeId, {
                   website: e.target.value,
                 })
               }

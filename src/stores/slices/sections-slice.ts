@@ -1,19 +1,14 @@
 import { type StateCreator } from "zustand";
 import type { SectionMeta } from "../types";
-import {
-  createSectionMeta,
-  personalTemplate,
-} from "../sections.factory";
-
-const personal = createSectionMeta(personalTemplate);
+ 
 
 export type SectionsSlice = {
-  sectionsOrder: string[];
-  sectionsMeta: Record<string, SectionMeta>;
-  createSection: (meta: SectionMeta) => void;
-  removeSection: (id: string) => void;
-  updateSectionTitle: (id: string, title: string) => void;
-  moveSection: (from: number, to: number) => void;
+  sectionsOrder: Record<string, string[]>;
+  sectionsMeta: Record<string, Record<string, SectionMeta>>;
+  createSection: (resumeId: string, meta: SectionMeta) => void;
+  removeSection: (resumeId: string, id: string) => void;
+  updateSectionTitle: (resumeId: string, id: string, title: string) => void;
+  moveSection: (resumeId: string, from: number, to: number) => void;
 };
 
 export const createSectionsSlice: StateCreator<
@@ -25,23 +20,22 @@ export const createSectionsSlice: StateCreator<
   //---------------------------------------------------------------------------
   // Initial State
   //---------------------------------------------------------------------------
-  sectionsOrder: [personal.id],
-  sectionsMeta: {
-    [personal.id]: {
-      ...personal,
-    },
-  },
+  sectionsOrder: {},
+  sectionsMeta: {},
 
   //---------------------------------------------------------------------------
   // Actions
   //---------------------------------------------------------------------------
-  createSection: (meta) =>
+  createSection: (resumeId, meta) =>
     set((state) => {
       let alreadyExists: boolean = false;
 
+      const sectionsOrder = state.sectionsOrder[resumeId] ?? [];
+      const sectionsMeta = state.sectionsMeta[resumeId] ?? {};
+
       if (meta.type !== "custom" && meta.type !== "custom-simple") {
-        alreadyExists = state.sectionsOrder.some(
-          (sec) => state.sectionsMeta[sec].type === meta.type
+        alreadyExists = sectionsOrder.some(
+          (sec) => sectionsMeta[sec].type === meta.type
         );
       }
 
@@ -50,48 +44,80 @@ export const createSectionsSlice: StateCreator<
       return {
         sectionsMeta: {
           ...state.sectionsMeta,
-          [meta.id]: meta,
+          [resumeId]: {
+            ...sectionsMeta,
+            [meta.id]: meta,
+          },
         },
-        sectionsOrder: [...state.sectionsOrder, meta.id],
+        sectionsOrder: {
+          ...state.sectionsOrder,
+          [resumeId]: [...sectionsOrder, meta.id],
+        },
       };
     }),
-  removeSection: (id) =>
+  removeSection: (resumeId, id) =>
     set((state) => {
-      const meta = state.sectionsMeta[id];
+      const sectionsOrder = state.sectionsOrder[resumeId] ?? [];
+      const sectionsMeta = state.sectionsMeta[resumeId] ?? {};
+
+      const meta = sectionsMeta[id];
 
       if (!meta || !meta.removable) return state;
 
-      const newMeta = { ...state.sectionsMeta };
+      const newMeta = { ...sectionsMeta };
       delete newMeta[id];
 
       return {
-        sectionsMeta: newMeta,
-        sectionsOrder: state.sectionsOrder.filter((s) => s !== id),
+        sectionsMeta: {
+          ...state.sectionsMeta,
+          [resumeId]: newMeta,
+        },
+        sectionsOrder: {
+          ...state.sectionsOrder,
+          [resumeId]: sectionsOrder.filter((s) => s !== id),
+        },
       };
     }),
-  updateSectionTitle: (id, title) =>
-    set((state) => ({
-      sectionsMeta: {
-        ...state.sectionsMeta,
-        [id]: {
-          ...state.sectionsMeta[id],
-          title,
+  updateSectionTitle: (resumeId, id, title) =>
+    set((state) => {
+      const sectionsMeta = state.sectionsMeta[resumeId] ?? {};
+      if (!sectionsMeta[id]) return state;
+
+      return {
+        sectionsMeta: {
+          ...state.sectionsMeta,
+          [resumeId]: {
+            ...sectionsMeta,
+            [id]: {
+              ...sectionsMeta[id],
+              title,
+            },
+          },
         },
-      },
-    })),
-  moveSection: (from, to) => {
+      };
+    }),
+  moveSection: (resumeId, from, to) => {
     const { sectionsOrder, sectionsMeta } = get();
+    const order = sectionsOrder[resumeId] ?? [];
+    const meta = sectionsMeta[resumeId] ?? {};
 
-    const movingId = sectionsOrder[from];
-    const targetId = sectionsOrder[to];
+    const movingId = order[from];
+    const targetId = order[to];
 
-    if (!sectionsMeta[movingId].movable) return;
-    if (!sectionsMeta[targetId].movable) return;
+    if (!movingId || !targetId) return;
 
-    const newOrder = [...sectionsOrder];
+    if (!meta[movingId]?.movable) return;
+    if (!meta[targetId]?.movable) return;
+
+    const newOrder = [...order];
     const [removed] = newOrder.splice(from, 1);
     newOrder.splice(to, 0, removed);
 
-    set({ sectionsOrder: newOrder });
+    set((state) => ({
+      sectionsOrder: {
+        ...state.sectionsOrder,
+        [resumeId]: newOrder,
+      },
+    }));
   },
 });

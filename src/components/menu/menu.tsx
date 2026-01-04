@@ -10,7 +10,7 @@ import {
 } from "@/stores/sections.factory";
 import { Button } from "../ui/button";
 
-function Menu() {
+function Menu({ resumeId }: { resumeId: string }) {
   const {
     createSection,
     createCustomSimpleSection,
@@ -19,49 +19,54 @@ function Menu() {
   } = useCvStore();
 
   function alreadyExists(type: string): boolean {
-    return sectionsOrder.some((sec) => sectionsMeta[sec].type === type);
+    const order = sectionsOrder[resumeId] ?? [];
+    const meta = sectionsMeta[resumeId] ?? {};
+    return order.some((sec: string) => meta[sec]?.type === type);
   }
 
   const buttonList = [
     {
       label: "Adicionar Resumo Profissional",
       action: () => {
-        createSection(createSectionMeta(summaryTemplate));
+        createSection(resumeId, createSectionMeta(summaryTemplate));
       },
       alreadyExists: alreadyExists(summaryTemplate.type),
     },
     {
       label: "Adicionar Experiência",
       action: () => {
-        createSection(createSectionMeta(experienceTemplate));
+        createSection(resumeId, createSectionMeta(experienceTemplate));
       },
       alreadyExists: alreadyExists(experienceTemplate.type),
     },
     {
       label: "Adicionar Formação",
       action: () => {
-        createSection(createSectionMeta(educationTemplate));
+        createSection(resumeId, createSectionMeta(educationTemplate));
       },
       alreadyExists: alreadyExists(educationTemplate.type),
     },
     {
       label: "Adicionar Projetos",
       action: () => {
-        createSection(createSectionMeta(projectsTemplate));
+        createSection(resumeId, createSectionMeta(projectsTemplate));
       },
       alreadyExists: alreadyExists(projectsTemplate.type),
     },
     {
       label: "Adicionar Seção Customizada",
       action: () => {
-        createSection(createSectionMeta(customTemplate));
+        createSection(resumeId, createSectionMeta(customTemplate));
       },
       alreadyExists: false,
     },
     {
       label: "Adicionar Seção Customizada (Simples)",
       action: () => {
-        createCustomSimpleSection(createSectionMeta(customSimpleTemplate));
+        createCustomSimpleSection(
+          resumeId,
+          createSectionMeta(customSimpleTemplate)
+        );
       },
       alreadyExists: false,
     },

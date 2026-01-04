@@ -1,9 +1,20 @@
 import type { StateCreator } from "zustand";
 import type { PersonalDetails } from "../types";
 
+const emptyPersonalDetails: PersonalDetails = {
+  personJobTitle: "",
+  fullName: "",
+  email: "",
+  phone: "",
+  location: "",
+  linkedin: "",
+  website: "",
+};
+
 export type PersonalDetailsSlice = {
-  personalDetails: PersonalDetails;
+  personalDetails: Record<string, PersonalDetails>;
   updatePersonalDetails: (
+    resumeId: string,
     updatedPersonalDetails: Partial<PersonalDetails>
   ) => void;
 };
@@ -14,21 +25,17 @@ export const createPersonalDetailsSlice: StateCreator<
   [],
   PersonalDetailsSlice
 > = (set) => ({
-  personalDetails: {
-    personJobTitle: "",
-    fullName: "",
-    email: "",
-    phone: "",
-    location: "",
-    linkedin: "",
-    website: "",
-  },
-  updatePersonalDetails: (updatedPersonalDetails) =>
+  personalDetails: {},
+  updatePersonalDetails: (resumeId, updatedPersonalDetails) =>
     set((state) => {
+      const current = state.personalDetails[resumeId] ?? emptyPersonalDetails;
       return {
         personalDetails: {
           ...state.personalDetails,
-          ...updatedPersonalDetails,
+          [resumeId]: {
+            ...current,
+            ...updatedPersonalDetails,
+          },
         },
       };
     }),

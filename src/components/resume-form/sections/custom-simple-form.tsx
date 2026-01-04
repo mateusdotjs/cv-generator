@@ -2,8 +2,10 @@ import { useCvStore } from "@/stores/cv-store";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "../../ui/field";
 import RichTextEditor from "../rich-text-editor";
 
-function CustomSimpleForm({ sectionId }: { sectionId: string }) {
+function CustomSimpleForm({ resumeId, sectionId }: { resumeId: string; sectionId: string }) {
   const { customSimple, updateCustomSimple } = useCvStore();
+
+  const value = customSimple[resumeId]?.[sectionId]?.description ?? "";
 
   return (
     <FieldSet>
@@ -11,9 +13,9 @@ function CustomSimpleForm({ sectionId }: { sectionId: string }) {
         <Field>
           <FieldLabel htmlFor="description">Descrição</FieldLabel>
           <RichTextEditor
-            value={customSimple[sectionId].description}
+            value={value}
             onChange={(html) => {
-              updateCustomSimple(sectionId, html);
+              updateCustomSimple(resumeId, sectionId, html);
             }}
           />
         </Field>

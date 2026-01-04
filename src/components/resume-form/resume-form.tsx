@@ -12,7 +12,7 @@ import {
 } from "@dnd-kit/core";
 import { useCvStore } from "@/stores/cv-store";
 
-function ResumeForm() {
+function ResumeForm({ resumeId }: { resumeId: string }) {
   const {
     sectionsOrder,
     sectionsMeta,
@@ -20,6 +20,8 @@ function ResumeForm() {
     updateSectionTitle,
     removeSection,
   } = useCvStore();
+  const order = sectionsOrder[resumeId] ?? [];
+  const metaById = sectionsMeta[resumeId] ?? {};
 
   const sensors = useSensors(useSensor(PointerSensor));
 
@@ -28,10 +30,10 @@ function ResumeForm() {
 
     if (!over) return;
 
-    const from = sectionsOrder.indexOf(active.id.toString());
-    const to = sectionsOrder.indexOf(over.id.toString());
+    const from = order.indexOf(active.id.toString());
+    const to = order.indexOf(over.id.toString());
 
-    if (from !== to) moveSection(from, to);
+    if (from !== to) moveSection(resumeId, from, to);
   };
 
   return (
@@ -40,10 +42,10 @@ function ResumeForm() {
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
     >
-      <SortableContext items={sectionsOrder}>
+      <SortableContext items={order}>
         <div className="w-full flex flex-col gap-1">
-          {sectionsOrder.map((sectionId) => {
-            const meta = sectionsMeta[sectionId];
+          {order.map((sectionId) => {
+            const meta = metaById[sectionId];
 
             return (
               <SectionSortable key={sectionId} id={sectionId}>
@@ -54,13 +56,13 @@ function ResumeForm() {
                       title={meta.title}
                       description={meta.description}
                       onTitleChange={(title: string) =>
-                        updateSectionTitle(sectionId, title)
+                        updateSectionTitle(resumeId, sectionId, title)
                       }
                       showRemove={meta.removable}
-                      onRemove={() => removeSection(sectionId)}
+                      onRemove={() => removeSection(resumeId, sectionId)}
                       handleProps={meta.movable ? handleProps : undefined}
                     >
-                      <SectionRenderer id={sectionId} />
+                      <SectionRenderer id={sectionId} resumeId={resumeId} />
                     </FormSection>
                   </div>
                 )}

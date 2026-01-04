@@ -5,7 +5,7 @@ import { Input } from "../../ui/input";
 import FormList from "../form-list";
 import RichTextEditor from "../rich-text-editor";
 
-function EducationForm() {
+function EducationForm({ resumeId }: { resumeId: string }) {
   const {
     education,
     addEducation,
@@ -14,25 +14,27 @@ function EducationForm() {
     reorderEducation,
   } = useCvStore();
 
+  const items = education[resumeId] ?? [];
+
   return (
     <FormList
-      items={education}
+      items={items}
       getTitle={(ed) =>
         `${ed.degree} ${ed.degree && ed.school && "-"} ${ed.school}`
       }
       getId={(ed) => ed.id}
       onAdd={() =>
-        addEducation({
+        addEducation(resumeId, {
           id: crypto.randomUUID(),
-          degree: `Formação ${education.length + 1}`,
-          school: `Universidade ${education.length + 1}`,
+          degree: `Formação ${items.length + 1}`,
+          school: `Universidade ${items.length + 1}`,
           startDate: new Date(),
           endDate: undefined,
           description: "",
         })
       }
-      onRemove={(id) => removeEducation(id)}
-      onReorder={(newList) => reorderEducation(newList)}
+      onRemove={(id) => removeEducation(resumeId, id)}
+      onReorder={(newList) => reorderEducation(resumeId, newList)}
       renderItem={(ed, i) => {
         return (
           <FieldSet>
@@ -44,7 +46,9 @@ function EducationForm() {
                     id={`school-${i}`}
                     value={ed.school}
                     onChange={(e) =>
-                      updateEducation(ed.id, { ...ed, school: e.target.value })
+                      updateEducation(resumeId, ed.id, {
+                        school: e.target.value,
+                      })
                     }
                   />
                 </Field>
@@ -54,7 +58,9 @@ function EducationForm() {
                     id={`degree-${i}`}
                     value={ed.degree}
                     onChange={(e) =>
-                      updateEducation(ed.id, { ...ed, degree: e.target.value })
+                      updateEducation(resumeId, ed.id, {
+                        degree: e.target.value,
+                      })
                     }
                   />
                 </Field>
@@ -69,8 +75,7 @@ function EducationForm() {
                       id={`educationStartDate-${i}`}
                       value={ed.startDate}
                       onChange={(date) =>
-                        updateEducation(ed.id, {
-                          ...ed,
+                        updateEducation(resumeId, ed.id, {
                           startDate: date,
                         })
                       }
@@ -84,8 +89,7 @@ function EducationForm() {
                       id={`educationEndDate-${i}`}
                       value={ed.endDate}
                       onChange={(date) =>
-                        updateEducation(ed.id, {
-                          ...ed,
+                        updateEducation(resumeId, ed.id, {
                           endDate: date,
                         })
                       }
@@ -98,8 +102,7 @@ function EducationForm() {
                 <RichTextEditor
                   value={ed.description}
                   onChange={(html) =>
-                    updateEducation(ed.id, {
-                      ...ed,
+                    updateEducation(resumeId, ed.id, {
                       description: html,
                     })
                   }

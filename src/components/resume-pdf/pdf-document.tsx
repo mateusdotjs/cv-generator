@@ -1,5 +1,6 @@
 import type {
   CustomItem,
+  CustomSimple,
   Education,
   Experience,
   PersonalDetails,
@@ -13,10 +14,12 @@ type cvSnapshot = {
   sectionsOrder: string[];
   sectionsMeta: Record<string, SectionMeta>;
   personalDetails: PersonalDetails;
+  summary: string;
   experiences: Experience[];
   education: Education[];
   projects: Project[];
   customItems: Record<string, CustomItem[]>;
+  customSimple: Record<string, CustomSimple>;
 };
 
 function PDFDocument({
@@ -29,7 +32,7 @@ function PDFDocument({
   return (
       <PDFViewer style={{ width: "100%", height: "100%" }} key={renderKey}>
         <Document
-          title={cvSnapshot.personalDetails.fullName}
+          title={cvSnapshot.personalDetails?.fullName || "Currículo"}
           author="cv-generator"
           producer="cv-generator"
         >
