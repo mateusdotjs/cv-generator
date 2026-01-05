@@ -4,8 +4,10 @@ import { Field, FieldGroup, FieldLabel, FieldSet } from "../../ui/field";
 import { Input } from "../../ui/input";
 import { DatePicker } from "../../ui/date-picker";
 import RichTextEditor from "../rich-text-editor";
+import { useTranslation } from "react-i18next";
 
 function CustomForm({ resumeId, sectionId }: { resumeId: string; sectionId: string }) {
+  const { t } = useTranslation();
   const {
     customItems,
     addCustomItem,
@@ -44,7 +46,7 @@ function CustomForm({ resumeId, sectionId }: { resumeId: string; sectionId: stri
               <div className="grid lg:grid-cols-2 lg:gap-2 gap-4">
                 <Field>
                   <FieldLabel htmlFor={`customItemTitle-${i}-${sectionId}`}>
-                    Taabalho, curso ou atividade
+                    {t("resume.fields.customTitle")}
                   </FieldLabel>
                   <Input
                     id={`customItemTitle-${i}-${sectionId}`}
@@ -61,7 +63,7 @@ function CustomForm({ resumeId, sectionId }: { resumeId: string; sectionId: stri
                     htmlFor={`customItemInstitution-${i}-${sectionId}`}
                     className="line-clamp-1"
                   >
-                    Universidade, empresa ou Instituição
+                    {t("resume.fields.institution")}
                   </FieldLabel>
                   <Input
                     id={`customItemInstitution-${i}-${sectionId}`}
@@ -80,7 +82,7 @@ function CustomForm({ resumeId, sectionId }: { resumeId: string; sectionId: stri
                     <FieldLabel
                       htmlFor={`customItemStartDate-${i}-${sectionId}`}
                     >
-                      De
+                      {t("resume.fields.startDate")}
                     </FieldLabel>
                     <DatePicker
                       id={`customItemStartDate-${i}-${sectionId}`}
@@ -94,7 +96,7 @@ function CustomForm({ resumeId, sectionId }: { resumeId: string; sectionId: stri
                   </Field>
                   <Field>
                     <FieldLabel htmlFor={`customItemEndDate-${i}-${sectionId}`}>
-                      Até
+                      {t("resume.fields.endDate")}
                     </FieldLabel>
                     <DatePicker
                       id={`customItemEndDate-${i}-${sectionId}`}
@@ -109,7 +111,7 @@ function CustomForm({ resumeId, sectionId }: { resumeId: string; sectionId: stri
                 </div>
               </div>
               <Field>
-                <FieldLabel htmlFor="description">Descrição</FieldLabel>
+                <FieldLabel htmlFor="description">{t("resume.fields.description")}</FieldLabel>
                 <RichTextEditor
                   value={item.description}
                   onChange={(html) => {

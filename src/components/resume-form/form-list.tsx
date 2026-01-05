@@ -6,6 +6,7 @@ import {
 } from "../ui/collapsible";
 import { Button } from "../ui/button";
 import { ChevronDown, GripVertical, PlusCircle, Trash } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import {
   closestCenter,
   DndContext,
@@ -36,6 +37,7 @@ function FormList<T>({
   onReorder,
   renderItem,
 }: FormListProps<T>) {
+  const { t } = useTranslation();
   const sensors = useSensors(useSensor(PointerSensor));
 
   const ids = items.map(getId);
@@ -111,7 +113,7 @@ function FormList<T>({
               );
             })}
           <Button variant="outline" onClick={onAdd} className="mt-4">
-            Adicionar novo item
+            {t("resume.actions.addNewItem", "Adicionar novo item")}
             <PlusCircle />
           </Button>
         </div>

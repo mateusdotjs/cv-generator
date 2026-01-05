@@ -8,9 +8,11 @@ import { gs } from "@/components/resume-pdf/styles/pdfStyles";
 function PDFEducation({
   sectionTitle,
   education,
+  language,
 }: {
   sectionTitle: string;
   education: Education[];
+  language: "pt-BR" | "en";
 }) {
   if (!education || education.length === 0) return null;
   return (
@@ -23,7 +25,7 @@ function PDFEducation({
             <Text style={gs.subtitleItalic}>{edu.degree}</Text>
             {edu.startDate && (
               <Text style={gs.subtitleItalic}>
-                {formatDate(edu.startDate)} — {formatDate(edu.endDate)}
+                {formatDate(edu.startDate, language)} — {formatDate(edu.endDate, language)}
               </Text>
             )}
           </View>

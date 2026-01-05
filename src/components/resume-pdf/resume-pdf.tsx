@@ -1,9 +1,12 @@
 import { useCvStore } from "@/stores/cv-store";
 import { useEffect, useRef, useState } from "react";
 import PDFDocument from "./pdf-document";
+import { useTranslation } from "react-i18next";
 
 function ResumePDF({ resumeId }: { resumeId: string }) {
+  const { t } = useTranslation();
   const {
+    resumes,
     sectionsOrder,
     sectionsMeta,
     personalDetails,
@@ -15,9 +18,25 @@ function ResumePDF({ resumeId }: { resumeId: string }) {
     customSimple,
   } = useCvStore();
 
+  const resume = resumes.find((r) => r.id === resumeId);
+  const language = resume?.language || "pt-BR";
+
+  // Translate section titles for PDF
+  const translatedSectionsMeta = Object.fromEntries(
+    Object.entries(sectionsMeta[resumeId] ?? {}).map(([id, meta]) => [
+      id,
+      {
+        ...meta,
+        title: t(meta.title, meta.title),
+        description: meta.description ? t(meta.description, meta.description) : undefined,
+      },
+    ])
+  );
+
   const snapshotSource = {
+    language,
     sectionsOrder: sectionsOrder[resumeId] ?? [],
-    sectionsMeta: sectionsMeta[resumeId] ?? {},
+    sectionsMeta: translatedSectionsMeta,
     personalDetails: personalDetails[resumeId] ?? {
       personJobTitle: "",
       fullName: "",
@@ -67,6 +86,7 @@ function ResumePDF({ resumeId }: { resumeId: string }) {
     };
   }, [
     resumeId,
+    language,
     sectionsOrder,
     sectionsMeta,
     personalDetails,

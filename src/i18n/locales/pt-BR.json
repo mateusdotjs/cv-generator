@@ -1,0 +1,75 @@
+{
+  "translation": {
+    "app": {
+      "title": "Gerador de Currículos"
+    },
+    "home": {
+      "title": "Meus Currículos",
+      "createNew": "Criar Novo Currículo",
+      "noResumes": "Nenhum currículo criado ainda",
+      "createdAt": "Criado em",
+      "lastUpdated": "Atualizado em"
+    },
+    "resume": {
+      "notFound": "Currículo não encontrado.",
+      "sections": {
+        "personal": "Dados Pessoais",
+        "personalDesc": "Seu nome, informações de contato e outros dados pessoais.",
+        "summary": "Resumo Profissional",
+        "summaryDesc": "Um breve resumo ou objetivo destacando suas metas de carreira e principais qualificações.",
+        "experience": "Experiência Profissional",
+        "experienceDesc": "Detalhes sobre seus empregos anteriores, incluindo cargo, nome da empresa, datas de trabalho e principais responsabilidades ou conquistas.",
+        "education": "Formação Acadêmica",
+        "educationDesc": "Informações sobre sua formação educacional, incluindo diplomas obtidos, instituições frequentadas e datas de conclusão.",
+        "projects": "Projetos",
+        "projectsDesc": "Projetos pessoais que você desenvolveu.",
+        "custom": "Seção Personalizada",
+        "customSimple": "Seção Personalizada Simples"
+      },
+      "actions": {
+        "addSection": "Adicionar Seção",
+        "removeSection": "Remover Seção",
+        "save": "Salvar",
+        "export": "Exportar PDF",
+        "back": "Voltar",
+        "addSummary": "Adicionar Resumo Profissional",
+        "addExperience": "Adicionar Experiência",
+        "addEducation": "Adicionar Formação",
+        "addProjects": "Adicionar Projetos",
+        "addCustom": "Adicionar Seção Customizada",
+        "addCustomSimple": "Adicionar Seção Customizada (Simples)",
+        "addNewItem": "Adicionar novo item"
+      },
+      "fields": {
+        "fullName": "Nome Completo",
+        "jobTitle": "Cargo",
+        "email": "E-mail",
+        "phone": "Telefone",
+        "location": "Localização",
+        "linkedin": "LinkedIn",
+        "website": "Website",
+        "company": "Empresa",
+        "startDate": "De",
+        "endDate": "Até",
+        "description": "Descrição",
+        "school": "Instituição",
+        "degree": "Curso",
+        "title": "Título",
+        "customTitle": "Trabalho, curso ou atividade",
+        "institution": "Universidade, empresa ou Instituição",
+        "present": "Presente",
+        "cvLanguage": "Idioma do Currículo"
+      }
+    },
+    "common": {
+      "save": "Salvar",
+      "cancel": "Cancelar",
+      "delete": "Excluir",
+      "edit": "Editar",
+      "add": "Adicionar",
+      "close": "Fechar",
+      "confirm": "Confirmar",
+      "language": "Idioma"
+    }
+  }
+}

@@ -1,8 +1,10 @@
 import { useCvStore } from "@/stores/cv-store";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "../../ui/field";
 import RichTextEditor from "../rich-text-editor";
+import { useTranslation } from "react-i18next";
 
 function CustomSimpleForm({ resumeId, sectionId }: { resumeId: string; sectionId: string }) {
+  const { t } = useTranslation();
   const { customSimple, updateCustomSimple } = useCvStore();
 
   const value = customSimple[resumeId]?.[sectionId]?.description ?? "";
@@ -11,7 +13,7 @@ function CustomSimpleForm({ resumeId, sectionId }: { resumeId: string; sectionId
     <FieldSet>
       <FieldGroup>
         <Field>
-          <FieldLabel htmlFor="description">Descrição</FieldLabel>
+          <FieldLabel htmlFor="description">{t("resume.fields.description")}</FieldLabel>
           <RichTextEditor
             value={value}
             onChange={(html) => {

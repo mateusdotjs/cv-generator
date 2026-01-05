@@ -4,8 +4,10 @@ import { Field, FieldGroup, FieldLabel, FieldSet } from "../../ui/field";
 import { Input } from "../../ui/input";
 import FormList from "../form-list";
 import RichTextEditor from "../rich-text-editor";
+import { useTranslation } from "react-i18next";
 
 function ExperienceForm({ resumeId }: { resumeId: string }) {
+  const { t } = useTranslation();
   const {
     experiences,
     addExperience,
@@ -41,7 +43,7 @@ function ExperienceForm({ resumeId }: { resumeId: string }) {
             <FieldGroup>
               <div className="grid lg:grid-cols-2 lg:gap-2 gap-4">
                 <Field>
-                  <FieldLabel htmlFor={`company-${i}`}>Empresa</FieldLabel>
+                  <FieldLabel htmlFor={`company-${i}`}>{t("resume.fields.company")}</FieldLabel>
                   <Input
                     id={`company-${i}`}
                     value={exp.company}
@@ -54,7 +56,7 @@ function ExperienceForm({ resumeId }: { resumeId: string }) {
                 </Field>
                 <Field>
                   <FieldLabel htmlFor={`experienceJobTitle-${i}`}>
-                    Cargo
+                    {t("resume.fields.jobTitle")}
                   </FieldLabel>
                   <Input
                     id={`experienceJobTitle-${i}`}
@@ -71,7 +73,7 @@ function ExperienceForm({ resumeId }: { resumeId: string }) {
                 <div className="grid lg:grid-cols-2 lg:gap-2 gap-4">
                   <Field>
                     <FieldLabel htmlFor={`experienceStartDate-${i}`}>
-                      De
+                      {t("resume.fields.startDate")}
                     </FieldLabel>
                     <DatePicker
                       id={`experienceStartDate-${i}`}
@@ -85,7 +87,7 @@ function ExperienceForm({ resumeId }: { resumeId: string }) {
                   </Field>
                   <Field>
                     <FieldLabel htmlFor={`experienceEndDate-${i}`}>
-                      Até
+                      {t("resume.fields.endDate")}
                     </FieldLabel>
                     <DatePicker
                       id={`experienceEndDate-${i}`}
@@ -100,7 +102,7 @@ function ExperienceForm({ resumeId }: { resumeId: string }) {
                 </div>
               </div>
               <Field>
-                <FieldLabel>Descrição</FieldLabel>
+                <FieldLabel>{t("resume.fields.description")}</FieldLabel>
                 <RichTextEditor
                   value={exp.description}
                   onChange={(html) => {

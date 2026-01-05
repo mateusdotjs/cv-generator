@@ -11,6 +11,7 @@ import PDFSectionRenderer from "./pdf-section-renderer";
 import { Document, Page, PDFViewer } from "@react-pdf/renderer";
 
 type cvSnapshot = {
+  language: "pt-BR" | "en";
   sectionsOrder: string[];
   sectionsMeta: Record<string, SectionMeta>;
   personalDetails: PersonalDetails;
@@ -51,6 +52,7 @@ function PDFDocument({
                 key={sectionId + i}
                 id={sectionId}
                 cvSnapshot={cvSnapshot}
+                language={cvSnapshot.language}
               />
             ))}
           </Page>

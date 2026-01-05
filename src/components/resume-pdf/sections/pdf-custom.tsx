@@ -8,9 +8,11 @@ import { gs } from "@/components/resume-pdf/styles/pdfStyles";
 export function PDFCustom({
   sectionTitle,
   customItem,
+  language,
 }: {
   sectionTitle: string;
   customItem: CustomItem[];
+  language: "pt-BR" | "en";
 }) {
   if (!customItem || customItem.length === 0) return null;
   return (
@@ -23,7 +25,7 @@ export function PDFCustom({
             <Text style={gs.subtitleItalic}>{item.title}</Text>
             {item.startDate && (
               <Text style={gs.subtitleItalic}>
-                {formatDate(item.startDate)} — {formatDate(item.endDate)}
+                {formatDate(item.startDate, language)} — {formatDate(item.endDate, language)}
               </Text>
             )}
           </View>

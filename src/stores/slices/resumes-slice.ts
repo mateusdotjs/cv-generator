@@ -18,6 +18,7 @@ const emptyPersonalDetails: PersonalDetails = {
 export type Resume = {
   id: string;
   name: string;
+  language: "pt-BR" | "en";
   createdAt: Date;
   updatedAt: Date;
 };
@@ -27,6 +28,7 @@ export type ResumesSlice = {
   createResume: (name: string) => string;
   deleteResume: (resumeId: string) => void;
   renameResume: (resumeId: string, name: string) => void;
+  setResumeLanguage: (resumeId: string, language: "pt-BR" | "en") => void;
   listResumes: () => Resume[];
 };
 
@@ -43,7 +45,7 @@ export const createResumesSlice: StateCreator<any, [], [], ResumesSlice> = (
       const personalMeta: SectionMeta = createSectionMeta(personalTemplate);
 
       set((state: any) => ({
-        resumes: [...state.resumes, { id, name, createdAt: now, updatedAt: now }],
+        resumes: [...state.resumes, { id, name, language: "pt-BR", createdAt: now, updatedAt: now }],
 
         experiences: { ...(state.experiences ?? {}), [id]: [] },
         education: { ...(state.education ?? {}), [id]: [] },
@@ -103,6 +105,16 @@ export const createResumesSlice: StateCreator<any, [], [], ResumesSlice> = (
         ),
       }));
     },
+
+    setResumeLanguage: (resumeId, language) => {
+      const now = new Date();
+      set((state: { resumes: Resume[] }) => ({
+        resumes: state.resumes.map((r: Resume) =>
+          r.id === resumeId ? { ...r, language, updatedAt: now } : r
+        ),
+      }));
+    },
+
     listResumes: () => get().resumes,
   };
 };

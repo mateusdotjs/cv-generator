@@ -9,9 +9,11 @@ import PDFSummary from "./sections/pdf-summary";
 function PDFSectionRenderer({
   id,
   cvSnapshot,
+  language,
 }: {
   id: string;
   cvSnapshot: any;
+  language: "pt-BR" | "en";
 }) {
   const meta = cvSnapshot.sectionsMeta[id];
 
@@ -31,6 +33,7 @@ function PDFSectionRenderer({
         <PDFExperience
           sectionTitle={meta.title}
           experiences={cvSnapshot.experiences}
+          language={language}
         />
       );
 
@@ -39,6 +42,7 @@ function PDFSectionRenderer({
         <PDFEducation
           sectionTitle={meta.title}
           education={cvSnapshot.education}
+          language={language}
         />
       );
 
@@ -52,6 +56,7 @@ function PDFSectionRenderer({
         <PDFCustom
           sectionTitle={meta.title}
           customItem={cvSnapshot.customItems[id]}
+          language={language}
         />
       );
 

@@ -5,10 +5,12 @@ import { useCvStore } from "@/stores/cv-store";
 import { Link, useParams } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useTranslation } from "react-i18next";
 
 function ResumePage() {
   const { id } = useParams();
   const resumeId = id ?? "";
+  const { t } = useTranslation();
 
   const resume = useCvStore((s) => s.resumes.find((r) => r.id === resumeId));
   const renameResume = useCvStore((s) => s.renameResume);
@@ -16,9 +18,9 @@ function ResumePage() {
   if (!resumeId || !resume) {
     return (
       <div className="min-h-full p-4 flex flex-col gap-4">
-        <div className="text-sm">Currículo não encontrado.</div>
+        <div className="text-sm">{t("resume.notFound", "Currículo não encontrado.")}</div>
         <Button asChild type="button" variant="secondary">
-          <Link to="/">Voltar</Link>
+          <Link to="/">{t("resume.actions.back")}</Link>
         </Button>
       </div>
     );
@@ -29,7 +31,7 @@ function ResumePage() {
       <div className="w-full flex flex-col gap-2">
         <div className="p-2 flex items-center gap-2">
           <Button asChild type="button" variant="secondary">
-            <Link to="/">Voltar</Link>
+            <Link to="/">{t("resume.actions.back")}</Link>
           </Button>
 
           <Input

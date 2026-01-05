@@ -8,9 +8,11 @@ import { gs } from "@/components/resume-pdf/styles/pdfStyles";
 function PDFExperience({
   sectionTitle,
   experiences,
+  language,
 }: {
   sectionTitle: string;
   experiences: Experience[];
+  language: "pt-BR" | "en";
 }) {
   if (!experiences || experiences.length === 0) return null;
   return (
@@ -23,7 +25,7 @@ function PDFExperience({
             <Text style={gs.subtitleItalic}>{exp.jobTitle}</Text>
             {exp.startDate && (
               <Text style={gs.subtitleItalic}>
-                {formatDate(exp.startDate)} — {formatDate(exp.endDate)}
+                {formatDate(exp.startDate, language)} — {formatDate(exp.endDate, language)}
               </Text>
             )}
           </View>

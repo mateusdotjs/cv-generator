@@ -1,9 +1,14 @@
 import { useCvStore } from "@/stores/cv-store";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "../../ui/field";
 import { Input } from "../../ui/input";
+import { useTranslation } from "react-i18next";
+import { CVLanguageSelector } from "@/components/cv-language-selector";
+import { useCvLanguage } from "@/hooks/useCvLanguage";
 
 function PersonalDetailsForm({ resumeId }: { resumeId: string }) {
+  const { t } = useTranslation();
   const { personalDetails, updatePersonalDetails } = useCvStore();
+  const { language, setLanguage } = useCvLanguage(resumeId);
   const values = personalDetails[resumeId] ?? {
     personJobTitle: "",
     fullName: "",
@@ -17,8 +22,11 @@ function PersonalDetailsForm({ resumeId }: { resumeId: string }) {
   return (
     <FieldSet>
       <FieldGroup>
+        <div className="mb-4 pb-4 border-b">
+          <CVLanguageSelector value={language} onChange={setLanguage} />
+        </div>
         <Field>
-          <FieldLabel htmlFor="fullName">Nome Completo</FieldLabel>
+          <FieldLabel htmlFor="fullName">{t("resume.fields.fullName")}</FieldLabel>
           <Input
             id="fullName"
             value={values.fullName}
@@ -30,7 +38,7 @@ function PersonalDetailsForm({ resumeId }: { resumeId: string }) {
           />
         </Field>
         <Field>
-          <FieldLabel htmlFor="personJobTitle">Seu cargo</FieldLabel>
+          <FieldLabel htmlFor="personJobTitle">{t("resume.fields.jobTitle")}</FieldLabel>
           <Input
             id="personJobTitle"
             value={values.personJobTitle}
@@ -43,7 +51,7 @@ function PersonalDetailsForm({ resumeId }: { resumeId: string }) {
         </Field>
         <div className="grid lg:grid-cols-2 lg:gap-2 gap-4">
           <Field>
-            <FieldLabel htmlFor="email">Email</FieldLabel>
+            <FieldLabel htmlFor="email">{t("resume.fields.email")}</FieldLabel>
             <Input
               type="email"
               id="email"
@@ -56,7 +64,7 @@ function PersonalDetailsForm({ resumeId }: { resumeId: string }) {
             />
           </Field>
           <Field>
-            <FieldLabel htmlFor="phone">Telefone</FieldLabel>
+            <FieldLabel htmlFor="phone">{t("resume.fields.phone")}</FieldLabel>
             <Input
               type="tel"
               id="phone"
@@ -70,7 +78,7 @@ function PersonalDetailsForm({ resumeId }: { resumeId: string }) {
           </Field>
         </div>
         <Field>
-          <FieldLabel htmlFor="location">Localização</FieldLabel>
+          <FieldLabel htmlFor="location">{t("resume.fields.location")}</FieldLabel>
           <Input
             id="location"
             value={values.location}
@@ -83,7 +91,7 @@ function PersonalDetailsForm({ resumeId }: { resumeId: string }) {
         </Field>
         <div className="grid lg:grid-cols-2 lg:gap-2 gap-4">
           <Field>
-            <FieldLabel htmlFor="linkedin">LinkedIn</FieldLabel>
+            <FieldLabel htmlFor="linkedin">{t("resume.fields.linkedin")}</FieldLabel>
             <Input
               id="linkedin"
               value={values.linkedin}
@@ -95,7 +103,7 @@ function PersonalDetailsForm({ resumeId }: { resumeId: string }) {
             />
           </Field>
           <Field>
-            <FieldLabel htmlFor="website">Website</FieldLabel>
+            <FieldLabel htmlFor="website">{t("resume.fields.website")}</FieldLabel>
             <Input
               id="website"
               value={values.website}

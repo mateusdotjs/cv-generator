@@ -3,8 +3,10 @@ import FormList from "../form-list";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import RichTextEditor from "../rich-text-editor";
+import { useTranslation } from "react-i18next";
 
 function ProjectsForm({ resumeId }: { resumeId: string }) {
+  const { t } = useTranslation();
   const { projects, addProject, updateProject, removeProject, reorderProject } =
     useCvStore();
 
@@ -30,7 +32,7 @@ function ProjectsForm({ resumeId }: { resumeId: string }) {
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor={`projectDescription-${i}`}>
-                  Título
+                  {t("resume.fields.title")}
                 </FieldLabel>
                 <Input
                   id={`projectDescription-${i}`}
@@ -43,7 +45,7 @@ function ProjectsForm({ resumeId }: { resumeId: string }) {
                 />
               </Field>
               <Field>
-                <FieldLabel>Descrição</FieldLabel>
+                <FieldLabel>{t("resume.fields.description")}</FieldLabel>
                 <RichTextEditor
                   value={proj.description}
                   onChange={(html) => {

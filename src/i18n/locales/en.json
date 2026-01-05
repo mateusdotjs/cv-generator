@@ -1,0 +1,75 @@
+{
+  "translation": {
+    "app": {
+      "title": "Resume Generator"
+    },
+    "home": {
+      "title": "My Resumes",
+      "createNew": "Create New Resume",
+      "noResumes": "No resumes created yet",
+      "createdAt": "Created at",
+      "lastUpdated": "Last updated"
+    },
+    "resume": {
+      "notFound": "Resume not found.",
+      "sections": {
+        "personal": "Personal Information",
+        "personalDesc": "Your name, contact information, and other personal details.",
+        "summary": "Professional Summary",
+        "summaryDesc": "A brief summary or objective highlighting your career goals and key qualifications.",
+        "experience": "Work Experience",
+        "experienceDesc": "Details about your previous jobs, including position, company name, work dates, and key responsibilities or achievements.",
+        "education": "Education",
+        "educationDesc": "Information about your educational background, including degrees obtained, institutions attended, and completion dates.",
+        "projects": "Projects",
+        "projectsDesc": "Personal projects you have developed.",
+        "custom": "Custom Section",
+        "customSimple": "Simple Custom Section"
+      },
+      "actions": {
+        "addSection": "Add Section",
+        "removeSection": "Remove Section",
+        "save": "Save",
+        "export": "Export PDF",
+        "back": "Back",
+        "addSummary": "Add Professional Summary",
+        "addExperience": "Add Experience",
+        "addEducation": "Add Education",
+        "addProjects": "Add Projects",
+        "addCustom": "Add Custom Section",
+        "addCustomSimple": "Add Simple Custom Section",
+        "addNewItem": "Add new item"
+      },
+      "fields": {
+        "fullName": "Full Name",
+        "jobTitle": "Job Title",
+        "email": "Email",
+        "phone": "Phone",
+        "location": "Location",
+        "linkedin": "LinkedIn",
+        "website": "Website",
+        "company": "Company",
+        "startDate": "From",
+        "endDate": "To",
+        "description": "Description",
+        "school": "School",
+        "degree": "Degree",
+        "title": "Title",
+        "customTitle": "Work, course or activity",
+        "institution": "University, company or Institution",
+        "present": "Present",
+        "cvLanguage": "Resume Language"
+      }
+    },
+    "common": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "edit": "Edit",
+      "add": "Add",
+      "close": "Close",
+      "confirm": "Confirm",
+      "language": "Language"
+    }
+  }
+}

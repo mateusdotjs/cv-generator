@@ -9,6 +9,7 @@ import {
   summaryTemplate,
 } from "@/stores/sections.factory";
 import { Button } from "../ui/button";
+import { useTranslation } from "react-i18next";
 
 function Menu({ resumeId }: { resumeId: string }) {
   const {
@@ -17,6 +18,8 @@ function Menu({ resumeId }: { resumeId: string }) {
     sectionsOrder,
     sectionsMeta,
   } = useCvStore();
+  
+  const { t } = useTranslation();
 
   function alreadyExists(type: string): boolean {
     const order = sectionsOrder[resumeId] ?? [];
@@ -26,42 +29,42 @@ function Menu({ resumeId }: { resumeId: string }) {
 
   const buttonList = [
     {
-      label: "Adicionar Resumo Profissional",
+      label: t("resume.actions.addSummary", "Adicionar Resumo Profissional"),
       action: () => {
         createSection(resumeId, createSectionMeta(summaryTemplate));
       },
       alreadyExists: alreadyExists(summaryTemplate.type),
     },
     {
-      label: "Adicionar Experiência",
+      label: t("resume.actions.addExperience", "Adicionar Experiência"),
       action: () => {
         createSection(resumeId, createSectionMeta(experienceTemplate));
       },
       alreadyExists: alreadyExists(experienceTemplate.type),
     },
     {
-      label: "Adicionar Formação",
+      label: t("resume.actions.addEducation", "Adicionar Formação"),
       action: () => {
         createSection(resumeId, createSectionMeta(educationTemplate));
       },
       alreadyExists: alreadyExists(educationTemplate.type),
     },
     {
-      label: "Adicionar Projetos",
+      label: t("resume.actions.addProjects", "Adicionar Projetos"),
       action: () => {
         createSection(resumeId, createSectionMeta(projectsTemplate));
       },
       alreadyExists: alreadyExists(projectsTemplate.type),
     },
     {
-      label: "Adicionar Seção Customizada",
+      label: t("resume.actions.addCustom", "Adicionar Seção Customizada"),
       action: () => {
         createSection(resumeId, createSectionMeta(customTemplate));
       },
       alreadyExists: false,
     },
     {
-      label: "Adicionar Seção Customizada (Simples)",
+      label: t("resume.actions.addCustomSimple", "Adicionar Seção Customizada (Simples)"),
       action: () => {
         createCustomSimpleSection(
           resumeId,
