@@ -7,7 +7,7 @@ import type {
   Project,
   SectionMeta,
 } from "@/stores/types";
-import PDFSectionRenderer from "./pdf-section-renderer";
+import PDFSectionRenderer from "./PdfSectionRenderer";
 import { Document, Page, PDFViewer } from "@react-pdf/renderer";
 
 type cvSnapshot = {

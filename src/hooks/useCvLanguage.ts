@@ -1,4 +1,4 @@
-import { useCvStore } from "@/stores/cv-store";
+import { useCvStore } from "@/stores/cvStore";
 
 export function useCvLanguage(resumeId: string | undefined) {
   const resumes = useCvStore((state) => state.resumes);

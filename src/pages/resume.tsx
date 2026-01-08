@@ -1,7 +1,7 @@
-import Menu from "@/components/menu/menu";
-import ResumeForm from "@/components/resume-form/resume-form";
-import ResumePDF from "@/components/resume-pdf/resume-pdf";
-import { useCvStore } from "@/stores/cv-store";
+import Menu from "@/components/menu/Menu";
+import ResumeForm from "@/components/resume-form/ResumeForm";
+import ResumePDF from "@/components/resume-pdf/ResumePdf";
+import { useCvStore } from "@/stores/cvStore";
 import { Link, useParams } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

@@ -1,6 +1,6 @@
-import { useCvStore } from "@/stores/cv-store";
+import { useCvStore } from "@/stores/cvStore";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "../../ui/field";
-import RichTextEditor from "../rich-text-editor";
+import RichTextEditor from "../RichTextEditor";
 import { useTranslation } from "react-i18next";
 
 function CustomSimpleForm({ resumeId, sectionId }: { resumeId: string; sectionId: string }) {

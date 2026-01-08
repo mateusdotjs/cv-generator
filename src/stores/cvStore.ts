@@ -3,37 +3,37 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import {
   createResumesSlice,
   type ResumesSlice,
-} from "./slices/resumes-slice";
+} from "./slices/resumesSlice";
 import {
   createExperienceSlice,
   type ExperienceSlice,
-} from "./slices/experience-slice";
+} from "./slices/experienceSlice";
 import {
   createEducationSlice,
   type EducationSlice,
-} from "./slices/education-slice";
+} from "./slices/educationSlice";
 import {
   createPersonalDetailsSlice,
   type PersonalDetailsSlice,
-} from "./slices/personal-details-slice";
+} from "./slices/personalDetailsSlice";
 import {
   createSectionsSlice,
   type SectionsSlice,
-} from "./slices/sections-slice";
+} from "./slices/sectionsSlice";
 import {
   createCustomItemsSlice,
   type CustomItemsSlice,
-} from "./slices/custom-items-slice";
+} from "./slices/customItemsSlice";
 import { convertDates } from "@/lib/convertDates";
 import {
   createProjectsSlice,
   type ProjectsSlice,
-} from "./slices/project-slice";
+} from "./slices/projectSlice";
 import {
   createCustomSimpleSlice,
   type CustomSimpleSlice,
-} from "./slices/custom-items-simple-slice";
-import { createSummarySlice, type SummarySlice } from "./slices/summary-slice";
+} from "./slices/customItemsSimpleSlice";
+import { createSummarySlice, type SummarySlice } from "./slices/summarySlice";
 import type { SectionMeta } from "./types";
 
 type CvRootActions = {

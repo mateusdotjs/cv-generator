@@ -1,5 +1,5 @@
 import type { StateCreator } from "zustand";
-import { createSectionMeta, personalTemplate } from "../sections.factory";
+import { createSectionMeta, personalTemplate } from "../sectionsFactory";
 import type { SectionMeta } from "../types";
 import type { PersonalDetails } from "../types";
 

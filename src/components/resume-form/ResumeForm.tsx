@@ -1,7 +1,7 @@
 import { SortableContext } from "@dnd-kit/sortable";
-import FormSection from "./form-section";
-import SectionRenderer from "./section-renderer";
-import SectionSortable from "./section-sortable";
+import FormSection from "./FormSection";
+import SectionRenderer from "./SectionRenderer";
+import SectionSortable from "./SectionSortable";
 import {
   closestCenter,
   DndContext,
@@ -10,7 +10,7 @@ import {
   useSensors,
   type DragEndEvent,
 } from "@dnd-kit/core";
-import { useCvStore } from "@/stores/cv-store";
+import { useCvStore } from "@/stores/cvStore";
 import { useTranslation } from "react-i18next";
 
 function ResumeForm({ resumeId }: { resumeId: string }) {

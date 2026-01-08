@@ -1,6 +1,6 @@
-import { useCvStore } from "@/stores/cv-store";
+import { useCvStore } from "@/stores/cvStore";
 import { useEffect, useRef, useState } from "react";
-import PDFDocument from "./pdf-document";
+import PDFDocument from "./PdfDocument";
 import { useTranslation } from "react-i18next";
 
 function ResumePDF({ resumeId }: { resumeId: string }) {

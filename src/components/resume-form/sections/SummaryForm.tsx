@@ -1,5 +1,5 @@
-import { useCvStore } from "@/stores/cv-store";
-import RichTextEditor from "../rich-text-editor";
+import { useCvStore } from "@/stores/cvStore";
+import RichTextEditor from "../RichTextEditor";
 
 function SummaryForm({ resumeId }: { resumeId: string }) {
   const { summary, setSummary } = useCvStore();

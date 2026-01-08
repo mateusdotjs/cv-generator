@@ -1,8 +1,8 @@
-import { useCvStore } from "@/stores/cv-store";
+import { useCvStore } from "@/stores/cvStore";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "../../ui/field";
 import { Input } from "../../ui/input";
 import { useTranslation } from "react-i18next";
-import { CVLanguageSelector } from "@/components/cv-language-selector";
+import { CVLanguageSelector } from "@/components/CvLanguageSelector";
 import { useCvLanguage } from "@/hooks/useCvLanguage";
 
 function PersonalDetailsForm({ resumeId }: { resumeId: string }) {

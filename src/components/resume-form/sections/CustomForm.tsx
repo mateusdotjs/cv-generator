@@ -1,9 +1,9 @@
-import { useCvStore } from "@/stores/cv-store";
-import FormList from "../form-list";
+import { useCvStore } from "@/stores/cvStore";
+import FormList from "../FormList";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "../../ui/field";
 import { Input } from "../../ui/input";
-import { DatePicker } from "../../ui/date-picker";
-import RichTextEditor from "../rich-text-editor";
+import { DatePicker } from "../../ui/DatePicker";
+import RichTextEditor from "../RichTextEditor";
 import { useTranslation } from "react-i18next";
 
 function CustomForm({ resumeId, sectionId }: { resumeId: string; sectionId: string }) {

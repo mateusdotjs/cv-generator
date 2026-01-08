@@ -16,7 +16,7 @@ import {
   type DragEndEvent,
 } from "@dnd-kit/core";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
-import ItemSortable from "./item-sortable";
+import ItemSortable from "./ItemSortable";
 
 type FormListProps<T> = {
   items: T[];

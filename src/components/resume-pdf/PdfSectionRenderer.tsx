@@ -1,10 +1,10 @@
-import PDFProfile from "./sections/pdf-profile";
-import PDFExperience from "./sections/pdf-experience";
-import PDFEducation from "./sections/pdf-education";
-import PDFCustom from "./sections/pdf-custom";
-import PDFProjects from "./sections/pdf-projects";
-import PDFCustomSimple from "./sections/pdf-custom-simple";
-import PDFSummary from "./sections/pdf-summary";
+import PDFProfile from "./sections/PdfProfile";
+import PDFExperience from "./sections/PdfExperience";
+import PDFEducation from "./sections/PdfEducation";
+import PDFCustom from "./sections/PdfCustom";
+import PDFProjects from "./sections/PdfProjects";
+import PDFCustomSimple from "./sections/PdfCustomSimple";
+import PDFSummary from "./sections/PdfSummary";
 
 function PDFSectionRenderer({
   id,

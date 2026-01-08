@@ -1,11 +1,11 @@
-import { useCvStore } from "@/stores/cv-store";
-import PersonalDetailsForm from "./sections/personal-details-form";
-import ExperienceForm from "./sections/experience-form";
-import EducationForm from "./sections/education-form";
-import CustomForm from "./sections/custom-form";
-import ProjectsForm from "./sections/projects-form";
-import CustomSimpleForm from "./sections/custom-simple-form";
-import SummaryForm from "./sections/summary-form";
+import { useCvStore } from "@/stores/cvStore";
+import PersonalDetailsForm from "./sections/PersonalDetailsForm";
+import ExperienceForm from "./sections/ExperienceForm";
+import EducationForm from "./sections/EducationForm";
+import CustomForm from "./sections/CustomForm";
+import ProjectsForm from "./sections/ProjectsForm";
+import CustomSimpleForm from "./sections/CustomSimpleForm";
+import SummaryForm from "./sections/SummaryForm";
 
 function SectionRenderer({ id, resumeId }: { id: string; resumeId: string }) {
   const meta = useCvStore((s) => s.sectionsMeta[resumeId]?.[id]);

@@ -1,9 +1,9 @@
-import { useCvStore } from "@/stores/cv-store";
-import { DatePicker } from "../../ui/date-picker";
+import { useCvStore } from "@/stores/cvStore";
+import { DatePicker } from "../../ui/DatePicker";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "../../ui/field";
 import { Input } from "../../ui/input";
-import FormList from "../form-list";
-import RichTextEditor from "../rich-text-editor";
+import FormList from "../FormList";
+import RichTextEditor from "../RichTextEditor";
 import { useTranslation } from "react-i18next";
 
 function EducationForm({ resumeId }: { resumeId: string }) {

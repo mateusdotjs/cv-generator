@@ -1,4 +1,4 @@
-import { useCvStore } from "@/stores/cv-store";
+import { useCvStore } from "@/stores/cvStore";
 import {
   createSectionMeta,
   customSimpleTemplate,
@@ -7,7 +7,7 @@ import {
   experienceTemplate,
   projectsTemplate,
   summaryTemplate,
-} from "@/stores/sections.factory";
+} from "@/stores/sectionsFactory";
 import { Button } from "../ui/button";
 import { useTranslation } from "react-i18next";
 

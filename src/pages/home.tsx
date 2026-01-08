@@ -1,10 +1,10 @@
-import { useCvStore } from "@/stores/cv-store";
-import { DEFAULT_RESUME_NAME } from "@/stores/slices/resumes-slice";
+import { useCvStore } from "@/stores/cvStore";
+import { DEFAULT_RESUME_NAME } from "@/stores/slices/resumesSlice";
 import { Link, useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
-import { LanguageSwitcher } from "@/components/language-switcher";
-import { exportResumeAsJson, importResumeFromJson } from "@/lib/resume-json";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { exportResumeAsJson, importResumeFromJson } from "@/lib/resumeJson";
 import { useRef } from "react";
 
 function HomePage() {

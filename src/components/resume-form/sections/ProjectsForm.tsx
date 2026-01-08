@@ -1,8 +1,8 @@
-import { useCvStore } from "@/stores/cv-store";
-import FormList from "../form-list";
+import { useCvStore } from "@/stores/cvStore";
+import FormList from "../FormList";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import RichTextEditor from "../rich-text-editor";
+import RichTextEditor from "../RichTextEditor";
 import { useTranslation } from "react-i18next";
 
 function ProjectsForm({ resumeId }: { resumeId: string }) {
