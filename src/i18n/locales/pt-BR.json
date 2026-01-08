@@ -8,7 +8,9 @@
       "createNew": "Criar Novo Currículo",
       "noResumes": "Nenhum currículo criado ainda",
       "createdAt": "Criado em",
-      "lastUpdated": "Atualizado em"
+      "lastUpdated": "Atualizado em",
+      "exportJson": "Exportar JSON",
+      "importJson": "Importar JSON"
     },
     "resume": {
       "notFound": "Currículo não encontrado.",

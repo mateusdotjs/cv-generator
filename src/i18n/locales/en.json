@@ -8,7 +8,9 @@
       "createNew": "Create New Resume",
       "noResumes": "No resumes created yet",
       "createdAt": "Created at",
-      "lastUpdated": "Last updated"
+      "lastUpdated": "Last updated",
+      "exportJson": "Export JSON",
+      "importJson": "Import JSON"
     },
     "resume": {
       "notFound": "Resume not found.",

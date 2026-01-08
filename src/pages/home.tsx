@@ -4,11 +4,41 @@ import { Link, useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { exportResumeAsJson, importResumeFromJson } from "@/lib/resume-json";
+import { useRef } from "react";
 
 function HomePage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { resumes, createResume, deleteResume } = useCvStore();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleExport = (resumeId: string) => {
+    const storageData = useCvStore.getState();
+    exportResumeAsJson(resumeId, storageData);
+  };
+
+  const handleImportClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      importResumeFromJson(
+        file,
+        (resumeId) => {
+          console.log("Resume imported successfully:", resumeId);
+        },
+        (error) => {
+          alert(error);
+        }
+      );
+    }
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
 
   return (
     <div className="min-h-full p-4">
@@ -17,6 +47,20 @@ function HomePage() {
           <h1 className="text-xl font-semibold">{t("home.title")}</h1>
           <div className="flex items-center gap-2">
             <LanguageSwitcher />
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".json"
+              onChange={handleFileChange}
+              style={{ display: "none" }}
+            />
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleImportClick}
+            >
+              {t("home.importJson")}
+            </Button>
             <Button
             type="button"
             onClick={() => {
@@ -48,6 +92,13 @@ function HomePage() {
                 <div className="flex items-center gap-2">
                   <Button asChild type="button" variant="secondary">
                     <Link to={`/${r.id}`}>{t("common.edit")}</Link>
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => handleExport(r.id)}
+                  >
+                    {t("home.exportJson")}
                   </Button>
                   <Button
                     type="button"
