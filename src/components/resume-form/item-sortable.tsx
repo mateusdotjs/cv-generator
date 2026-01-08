@@ -1,11 +1,11 @@
-import type { HandleProps } from "@/types";
+import type { DragHandleProps } from "@/types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import type { ReactNode } from "react";
 
 type ItemSortableProps = {
   id: string;
-  children: (handleProps: HandleProps) => ReactNode;
+  children: (dragHandleProps: DragHandleProps) => ReactNode;
 };
 
 function ItemSortable({ id, children }: ItemSortableProps) {
@@ -17,14 +17,14 @@ function ItemSortable({ id, children }: ItemSortableProps) {
     transition,
   };
 
-  const handleProps = {
-    listeners,
+  const dragHandleProps: DragHandleProps = {
     attributes,
+    listeners,
     setNodeRef,
     style,
   };
 
-  return children(handleProps);
+  return children(dragHandleProps);
 }
 
 export default ItemSortable;

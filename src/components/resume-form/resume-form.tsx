@@ -54,8 +54,8 @@ function ResumeForm({ resumeId }: { resumeId: string }) {
 
             return (
               <SectionSortable key={sectionId} id={sectionId}>
-                {(handleProps) => (
-                  <div ref={handleProps.setNodeRef} style={handleProps.style}>
+                {(dragHandleProps) => (
+                  <div ref={dragHandleProps.setNodeRef} style={dragHandleProps.style}>
                     <FormSection
                       key={sectionId}
                       title={translatedTitle}
@@ -65,7 +65,7 @@ function ResumeForm({ resumeId }: { resumeId: string }) {
                       }
                       showRemove={meta.removable}
                       onRemove={() => removeSection(resumeId, sectionId)}
-                      handleProps={meta.movable ? handleProps : undefined}
+                      dragHandleProps={meta.movable ? dragHandleProps : undefined}
                     >
                       <SectionRenderer id={sectionId} resumeId={resumeId} />
                     </FormSection>

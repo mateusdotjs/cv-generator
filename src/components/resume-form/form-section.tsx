@@ -3,10 +3,9 @@ import { Card, CardDescription, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { ChevronDown, Edit, GripVertical, Trash } from "lucide-react";
 import { CollapsibleContent } from "../ui/collapsible";
-import { useState, type CSSProperties, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import type { DraggableAttributes } from "@dnd-kit/core";
-import type { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
+import type { DragHandleProps } from "@/types";
 
 type FormSectionProps = {
   title: string;
@@ -15,15 +14,8 @@ type FormSectionProps = {
   onTitleChange: (title: string) => void;
   showRemove: boolean;
   onRemove: () => void;
-  handleProps: HandleProps | undefined;
+  dragHandleProps: DragHandleProps | undefined;
   children: ReactNode;
-};
-
-type HandleProps = {
-  attributes: DraggableAttributes;
-  listeners: SyntheticListenerMap | undefined;
-  setNodeRef: (el: HTMLElement | null) => void;
-  style: CSSProperties;
 };
 
 function FormSection({
@@ -33,7 +25,7 @@ function FormSection({
   onTitleChange,
   showRemove,
   onRemove,
-  handleProps,
+  dragHandleProps,
   children,
 }: FormSectionProps) {
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -42,10 +34,10 @@ function FormSection({
     <Collapsible>
       <Card className={cn("p-2 pl-8", className)}>
         <div className="flex items-center justify-between relative group">
-          {handleProps && (
+          {dragHandleProps && (
             <GripVertical
-              {...handleProps?.attributes}
-              {...handleProps?.listeners}
+              {...dragHandleProps.attributes}
+              {...dragHandleProps.listeners}
               className="absolute -left-6 cursor-grab"
             />
           )}
