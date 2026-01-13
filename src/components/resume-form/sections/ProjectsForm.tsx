@@ -20,7 +20,7 @@ function ProjectsForm({ resumeId }: { resumeId: string }) {
       onAdd={() => {
         addProject(resumeId, {
           id: crypto.randomUUID(),
-          title: `Projeto ${items.length + 1}`,
+          title: `${t("resume.defaults.project")} ${items.length + 1}`,
           description: "",
         });
       }}

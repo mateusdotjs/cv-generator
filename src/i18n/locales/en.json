@@ -61,6 +61,15 @@
         "institution": "University, company or Institution",
         "present": "Present",
         "cvLanguage": "Resume Language"
+      },
+      "defaults": {
+        "experience": "Experience",
+        "company": "Company",
+        "education": "Education",
+        "university": "University",
+        "project": "Project",
+        "customItem": "Custom Item",
+        "institution": "Institution"
       }
     },
     "common": {

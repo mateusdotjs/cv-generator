@@ -28,8 +28,8 @@ function EducationForm({ resumeId }: { resumeId: string }) {
       onAdd={() =>
         addEducation(resumeId, {
           id: crypto.randomUUID(),
-          degree: `Formação ${items.length + 1}`,
-          school: `Universidade ${items.length + 1}`,
+          degree: `${t("resume.defaults.education")} ${items.length + 1}`,
+          school: `${t("resume.defaults.university")} ${items.length + 1}`,
           startDate: new Date(),
           endDate: undefined,
           description: "",

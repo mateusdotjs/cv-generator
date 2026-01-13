@@ -28,8 +28,8 @@ function ExperienceForm({ resumeId }: { resumeId: string }) {
       onAdd={() =>
         addExperience(resumeId, {
           id: crypto.randomUUID(),
-          jobTitle: `Experiência ${items.length + 1}`,
-          company: `Empresa ${items.length + 1}`,
+          jobTitle: `${t("resume.defaults.experience")} ${items.length + 1}`,
+          company: `${t("resume.defaults.company")} ${items.length + 1}`,
           startDate: new Date(),
           endDate: undefined,
           description: "",

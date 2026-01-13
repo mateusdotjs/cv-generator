@@ -26,8 +26,8 @@ function CustomForm({ resumeId, sectionId }: { resumeId: string; sectionId: stri
       onAdd={() =>
         addCustomItem(resumeId, sectionId, {
           id: crypto.randomUUID(),
-          title: `Item Personalizado ${items.length + 1}`,
-          institution: `Instituição ${items.length + 1}`,
+          title: `${t("resume.defaults.customItem")} ${items.length + 1}`,
+          institution: `${t("resume.defaults.institution")} ${items.length + 1}`,
           startDate: undefined,
           endDate: undefined,
           description: "",
