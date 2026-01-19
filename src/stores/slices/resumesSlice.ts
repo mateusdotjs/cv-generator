@@ -2,6 +2,7 @@ import type { StateCreator } from "zustand";
 import { createSectionMeta, personalTemplate } from "../sectionsFactory";
 import type { SectionMeta } from "../types";
 import type { PersonalDetails } from "../types";
+import i18n from "../../i18n/config";
 
 export const DEFAULT_RESUME_NAME = "Meu Currículo";
 
@@ -42,7 +43,11 @@ export const createResumesSlice: StateCreator<any, [], [], ResumesSlice> = (
     createResume: (name) => {
       const id = crypto.randomUUID();
       const now = new Date();
-      const personalMeta: SectionMeta = createSectionMeta(personalTemplate);
+      
+      const personalMeta: SectionMeta = createSectionMeta(personalTemplate, {
+        title: i18n.t(personalTemplate.title),
+        description: i18n.t(personalTemplate.description)
+      });
 
       set((state: any) => ({
         resumes: [...state.resumes, { id, name, language: "pt-BR", createdAt: now, updatedAt: now }],

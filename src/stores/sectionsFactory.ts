@@ -55,10 +55,13 @@ export const customSimpleTemplate = {
 };
 
 export function createSectionMeta(
-  template: Omit<SectionMeta, "id">
+  template: Omit<SectionMeta, "id">,
+  overrides?: { title?: string; description?: string }
 ): SectionMeta {
   return {
     id: crypto.randomUUID(),
     ...template,
+    title: overrides?.title ?? template.title,
+    description: overrides?.description ?? template.description,
   };
 }

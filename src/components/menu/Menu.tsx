@@ -31,35 +31,49 @@ function Menu({ resumeId }: { resumeId: string }) {
     {
       label: t("resume.actions.addSummary", "Adicionar Resumo Profissional"),
       action: () => {
-        createSection(resumeId, createSectionMeta(summaryTemplate));
+        createSection(resumeId, createSectionMeta(summaryTemplate, {
+          title: t(summaryTemplate.title),
+          description: t(summaryTemplate.description)
+        }));
       },
       alreadyExists: alreadyExists(summaryTemplate.type),
     },
     {
       label: t("resume.actions.addExperience", "Adicionar Experiência"),
       action: () => {
-        createSection(resumeId, createSectionMeta(experienceTemplate));
+        createSection(resumeId, createSectionMeta(experienceTemplate, {
+          title: t(experienceTemplate.title),
+          description: t(experienceTemplate.description)
+        }));
       },
       alreadyExists: alreadyExists(experienceTemplate.type),
     },
     {
       label: t("resume.actions.addEducation", "Adicionar Formação"),
       action: () => {
-        createSection(resumeId, createSectionMeta(educationTemplate));
+        createSection(resumeId, createSectionMeta(educationTemplate, {
+          title: t(educationTemplate.title),
+          description: t(educationTemplate.description)
+        }));
       },
       alreadyExists: alreadyExists(educationTemplate.type),
     },
     {
       label: t("resume.actions.addProjects", "Adicionar Projetos"),
       action: () => {
-        createSection(resumeId, createSectionMeta(projectsTemplate));
+        createSection(resumeId, createSectionMeta(projectsTemplate, {
+          title: t(projectsTemplate.title),
+          description: t(projectsTemplate.description)
+        }));
       },
       alreadyExists: alreadyExists(projectsTemplate.type),
     },
     {
       label: t("resume.actions.addCustom", "Adicionar Seção Customizada"),
       action: () => {
-        createSection(resumeId, createSectionMeta(customTemplate));
+        createSection(resumeId, createSectionMeta(customTemplate, {
+          title: t(customTemplate.title)
+        }));
       },
       alreadyExists: false,
     },
@@ -68,7 +82,9 @@ function Menu({ resumeId }: { resumeId: string }) {
       action: () => {
         createCustomSimpleSection(
           resumeId,
-          createSectionMeta(customSimpleTemplate)
+          createSectionMeta(customSimpleTemplate, {
+            title: t(customSimpleTemplate.title)
+          })
         );
       },
       alreadyExists: false,

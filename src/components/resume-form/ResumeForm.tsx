@@ -11,7 +11,6 @@ import {
   type DragEndEvent,
 } from "@dnd-kit/core";
 import { useCvStore } from "@/stores/cvStore";
-import { useTranslation } from "react-i18next";
 
 function ResumeForm({ resumeId }: { resumeId: string }) {
   const {
@@ -21,7 +20,6 @@ function ResumeForm({ resumeId }: { resumeId: string }) {
     updateSectionTitle,
     removeSection,
   } = useCvStore();
-  const { t } = useTranslation();
   const order = sectionsOrder[resumeId] ?? [];
   const metaById = sectionsMeta[resumeId] ?? {};
 
@@ -48,9 +46,6 @@ function ResumeForm({ resumeId }: { resumeId: string }) {
         <div className="w-full flex flex-col gap-1">
           {order.map((sectionId) => {
             const meta = metaById[sectionId];
-            
-            const translatedTitle = t(meta.title, meta.title);
-            const translatedDescription = meta.description ? t(meta.description, meta.description) : undefined;
 
             return (
               <SectionSortable key={sectionId} id={sectionId}>
@@ -58,8 +53,8 @@ function ResumeForm({ resumeId }: { resumeId: string }) {
                   <div ref={dragHandleProps.setNodeRef} style={dragHandleProps.style}>
                     <FormSection
                       key={sectionId}
-                      title={translatedTitle}
-                      description={translatedDescription}
+                      title={meta.title}
+                      description={meta.description}
                       onTitleChange={(title: string) =>
                         updateSectionTitle(resumeId, sectionId, title)
                       }
